@@ -7,4 +7,5 @@
     <color name="onBoardingButtonText">#0e2500</color>
     <color name="onBoardingTitleText">#ffffff</color>
     <color name="onBoardingDescText">#747476</color>
+    <color name="grey">#a2a2a2</color>
 </resources>
