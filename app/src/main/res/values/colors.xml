@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="mainColor">#202022</color>
+    <color name="onBoardingButton">#d3ff86</color>
+    <color name="onBoardingButtonText">#0e2500</color>
+    <color name="onBoardingTitleText">#ffffff</color>
+    <color name="onBoardingDescText">#747476</color>
 </resources>
