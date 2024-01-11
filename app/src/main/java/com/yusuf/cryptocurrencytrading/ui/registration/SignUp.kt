@@ -1,6 +1,6 @@
 package com.yusuf.cryptocurrencytrading.ui.registration
 
-import android.content.Context
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,20 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.Firebase
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.databinding.FragmentSignUpBinding
 import com.yusuf.cryptocurrencytrading.ui.registration.viewModel.RegistrationViewModel
+import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.visible
 
 class SignUp : Fragment() {
 
@@ -31,7 +24,7 @@ class SignUp : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
         return binding.root
@@ -40,10 +33,11 @@ class SignUp : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeData()
+
         binding.goToSignIn.setOnClickListener {
             val action = SignUpDirections.actionSignUpToSignIn()
             findNavController().navigate(action)
-
 
         }
 
@@ -52,14 +46,28 @@ class SignUp : Fragment() {
             val password = binding.editTextPassword.text.toString()
             val email = binding.editTextEmail.text.toString()
 
-            viewModel.signUp(email, password, name, {
-                val action = SignUpDirections.actionSignUpToMainCryptoFragment()
+            viewModel.signUp(email, password, name, requireContext(),{
+                val action = SignUpDirections.actionSignUpToSignIn()
                 findNavController().navigate(action)
 
             }, {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             })
             Log.i("info", "$name $password $email")
+        }
+    }
+
+    private fun observeData(){
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                binding.progressBar.visible()
+                binding.saveButton.isClickable= false
+                binding.saveButton.setBackgroundResource(R.drawable.button_loading_color)
+            }
+            else{
+                binding.progressBar.gone()
+                binding.saveButton.isClickable= true
+            }
         }
     }
 }
