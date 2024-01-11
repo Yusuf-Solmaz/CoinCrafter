@@ -1,27 +1,45 @@
 package com.yusuf.cryptocurrencytrading.ui.registration.viewModel
 
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.utils.Utils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 class RegistrationViewModel : ViewModel() {
 
-     val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-     val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+     var loading = MutableLiveData<Boolean>()
 
-    fun signUp(email: String, password: String, name: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        if (email.isNotEmpty() && password.isNotEmpty()) {
 
+     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+     private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+
+    fun checkUserIfNotNull(action: () -> Unit){
+        val user = auth.currentUser
+
+        if (user != null){
+            action()
+        }
+    }
+
+    fun signIn(email: String, password: String,context: Context,onSuccess: () -> Unit, onFailure: (String) -> Unit){
+        if (Utils.emailAndPasswordControl(email,password,context)){
+           auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
+               onSuccess()
+           }.addOnFailureListener {
+               onFailure(it.localizedMessage ?: "An unknown error occurred.")
+           }
+        }
+        else {
+            onFailure("E-mail or Password can not be empty.")
+        }
+    }
+
+    fun signUp(email: String, password: String, name: String, context: Context,onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        loading.value = true
+        if (Utils.nameControl(name,context) && Utils.emailAndPasswordControl(email,password,context)){
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener { authResult ->
                     val user = hashMapOf(
@@ -35,6 +53,7 @@ class RegistrationViewModel : ViewModel() {
                         .set(user)
                         .addOnSuccessListener {
                             onSuccess()
+                            loading.value = false
                         }
                         .addOnFailureListener {
                             onFailure(it.localizedMessage ?: "An unknown error occurred.")
@@ -43,7 +62,8 @@ class RegistrationViewModel : ViewModel() {
                 }.addOnFailureListener {
                     onFailure(it.localizedMessage ?: "An unknown error occurred.")
                 }
-        } else {
+        }
+         else {
             onFailure("E-mail or Password can not be empty.")
         }
     }
