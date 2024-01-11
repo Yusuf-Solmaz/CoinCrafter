@@ -6,8 +6,8 @@ import android.widget.Toast
 
 class Utils{
     companion object{
-        const val emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"
-        const val nameRegex = "^[a-zA-ZğüşıöçĞÜŞİÖÇ]+$"
+        private const val emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"
+        private const val nameRegex = "^[a-zA-ZüÜğĞıİşŞöÖçÇ]+$"
 
         fun  emailAndPasswordControl(email:String,password:String,context: Context) :Boolean{
             return if (email.equals("") || password.equals("")) {
@@ -21,12 +21,17 @@ class Utils{
             }
         }
 
-        fun nameControl(name:String,context: Context):Boolean{
-            return if (name.matches(nameRegex.toRegex())){
-                true;
+        fun nameControl(name: String, context: Context): Boolean {
+            if (name.isEmpty()) {
+                Toast.makeText(context, "Name can not be empty!", Toast.LENGTH_LONG).show()
+                return false
+            }
+
+            return if (name.matches(nameRegex.toRegex())) {
+                true
             } else {
-                Toast.makeText(context,"Name can not be empty!",Toast.LENGTH_LONG).show();
-                false;
+                Toast.makeText(context, "Invalid name format!", Toast.LENGTH_LONG).show()
+                false
             }
         }
 
