@@ -30,5 +30,9 @@
         android:id="@+id/mainCryptoFragment"
         android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.MainCryptoFragment"
         android:label="fragment_main_crypto"
-        tools:layout="@layout/fragment_main_crypto" />
+        tools:layout="@layout/fragment_main_crypto" >
+        <action
+            android:id="@+id/action_mainCryptoFragment_to_signIn"
+            app:destination="@id/signIn" />
+    </fragment>
 </navigation>
