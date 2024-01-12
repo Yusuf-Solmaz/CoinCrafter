@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -17,10 +18,12 @@ import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.databinding.FragmentMainCryptoBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.ImageAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MainCryptoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 import java.util.Timer
 import java.util.TimerTask
 
+@AndroidEntryPoint
 class MainCryptoFragment : Fragment() {
 
     private lateinit var binding: FragmentMainCryptoBinding
@@ -54,6 +57,13 @@ class MainCryptoFragment : Fragment() {
 
         getUserName()
 
+        viewModel.getAllCoins()
+
+        binding.imageViewLogOut.setOnClickListener {
+            logOut()
+        }
+
+
     }
 
     fun getUserName() {
@@ -76,7 +86,15 @@ class MainCryptoFragment : Fragment() {
         }, 0, 10000)
     }
 
+    fun logOut(){
+            viewModel.logOut {
+                val action = MainCryptoFragmentDirections.actionMainCryptoFragmentToSignIn()
+                findNavController().navigate(action)
+            }
+    }
+
 }
+
 
 
 //binding.button2.setOnClickListener {

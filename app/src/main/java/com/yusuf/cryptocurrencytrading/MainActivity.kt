@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.yusuf.cryptocurrencytrading.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
