@@ -35,6 +35,9 @@ class Utils{
             }
         }
 
+        const val BASE_URL ="https://api.coinmarketcap.com/"
+        const val GET_COINS = "data-api/v3/cryptocurrency/listing?start1&limit=500"
+
     }
 }
 
