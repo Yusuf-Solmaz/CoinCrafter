@@ -8,4 +8,5 @@
     <color name="onBoardingTitleText">#ffffff</color>
     <color name="onBoardingDescText">#747476</color>
     <color name="grey">#a2a2a2</color>
+    <color name="bottom_navbar">#2d2c30</color>
 </resources>
