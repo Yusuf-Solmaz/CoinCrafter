@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -15,7 +16,10 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.yusuf.cryptocurrencytrading.R
+import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Coin
+import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentMainCryptoBinding
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.CoinAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.ImageAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MainCryptoViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +34,8 @@ class MainCryptoFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var viewModel: MainCryptoViewModel
+    private lateinit var coinList: List<CryptoCurrency>
+    private lateinit var adapter : CoinAdapter
 
     private val imageResources = arrayOf(R.drawable.crypto_image1, R.drawable.crypto_image2, R.drawable.crypto_image3)
     private val timer = Timer()
@@ -43,6 +49,7 @@ class MainCryptoFragment : Fragment() {
         firestore = Firebase.firestore
         viewModel = ViewModelProvider(this).get(MainCryptoViewModel::class.java)
 
+        viewModel.getAllCoins()
 
         return binding.root
 
@@ -57,7 +64,10 @@ class MainCryptoFragment : Fragment() {
 
         getUserName()
 
-        viewModel.getAllCoins()
+        setupRecyclerView()
+        observeCoins()
+
+
 
         binding.imageViewLogOut.setOnClickListener {
             logOut()
@@ -91,6 +101,27 @@ class MainCryptoFragment : Fragment() {
                 val action = MainCryptoFragmentDirections.actionMainCryptoFragmentToSignIn()
                 findNavController().navigate(action)
             }
+    }
+
+    private fun setupRecyclerView() {
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager = layoutManager
+    }
+
+    fun observeCoins(){
+        viewModel.coins.observe(viewLifecycleOwner){
+            coins->
+            coins?.let {
+                adapter = CoinAdapter(requireContext(),coins.data.cryptoCurrencyList)
+                binding.recyclerView.adapter=adapter
+            }
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllCoins()
     }
 
 }

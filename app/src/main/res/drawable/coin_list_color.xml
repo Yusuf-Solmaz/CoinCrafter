@@ -3,7 +3,7 @@
 
     <gradient
         android:endColor="#29292b"
-        android:startColor="@color/bottom_navbar"
+        android:startColor="#2d2c30"
         android:angle="30"/>
     <corners android:radius="20dp"/>
 </shape>
