@@ -31,20 +31,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavView"
-        android:layout_width="415dp"
-        android:layout_height="70dp"
-        android:background="@color/bottom_navbar"
-        app:itemIconTint="@color/onBoardingButton"
-        app:itemRippleColor="@color/grey"
-        app:itemTextColor="@color/onBoardingButton"
-        app:itemActiveIndicatorStyle="@android:color/transparent"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2Main"
@@ -85,30 +72,35 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
 
+        android:layout_marginTop="10dp"
         android:text="All Coins"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager2Main" />
 
     <TextView
         android:id="@+id/textViewViewAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="188dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="22dp"
         android:text="View All"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewCoins" />
+        app:layout_constraintStart_toEndOf="@+id/textViewCoins"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager2Main" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="405dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavView"
+        android:layout_width="408dp"
+        android:layout_height="234dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

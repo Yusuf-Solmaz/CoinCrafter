@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_signIn_to_signUp"
             app:destination="@id/signUp" />
-        <action
-            android:id="@+id/action_signIn_to_mainCryptoFragment"
-            app:destination="@id/mainCryptoFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUp"
@@ -24,15 +21,6 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUp_to_signIn"
-            app:destination="@id/signIn" />
-    </fragment>
-    <fragment
-        android:id="@+id/mainCryptoFragment"
-        android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.MainCryptoFragment"
-        android:label="fragment_main_crypto"
-        tools:layout="@layout/fragment_main_crypto" >
-        <action
-            android:id="@+id/action_mainCryptoFragment_to_signIn"
             app:destination="@id/signIn" />
     </fragment>
 </navigation>

@@ -12,4 +12,6 @@
     <color name="recyclerViewCardViewColor">#29292b</color>
     <color name="red">#FF0057</color>
     <color name="green">#00FF0A</color>
+    <color name="purple">#673AB7</color>
+    <color name="dark_purple">#2B0570</color>
 </resources>
