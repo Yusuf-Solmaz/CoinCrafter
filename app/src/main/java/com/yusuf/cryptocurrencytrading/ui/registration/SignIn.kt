@@ -1,20 +1,25 @@
 package com.yusuf.cryptocurrencytrading.ui.registration
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.yusuf.cryptocurrencytrading.MainActivity
 import com.yusuf.cryptocurrencytrading.databinding.FragmentSignInBinding
 import com.yusuf.cryptocurrencytrading.ui.registration.viewModel.RegistrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignIn : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
     private lateinit var viewModel: RegistrationViewModel
+    private var mContext: Context? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +29,13 @@ class SignIn : Fragment() {
         viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
 
         checkUserIfNotNull()
+
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,8 +57,9 @@ class SignIn : Fragment() {
     private fun signIn(email:String,password:String){
 
         viewModel.signIn(email,password,requireContext(),{
-            val action = SignInDirections.actionSignInToMainCryptoFragment()
-            findNavController().navigate(action)
+            if (mContext is MainActivity) {
+                (mContext as MainActivity).goToCoinActivity()
+            }
         },{
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
@@ -55,8 +67,9 @@ class SignIn : Fragment() {
 
     private fun checkUserIfNotNull(){
         viewModel.checkUserIfNotNull {
-            val action = SignInDirections.actionSignInToMainCryptoFragment()
-            findNavController().navigate(action)
+            if (mContext is MainActivity) {
+                (mContext as MainActivity).goToCoinActivity()
+            }
         }
     }
 }

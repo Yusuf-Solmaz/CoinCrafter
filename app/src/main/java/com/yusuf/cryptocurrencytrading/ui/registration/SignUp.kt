@@ -15,7 +15,9 @@ import com.yusuf.cryptocurrencytrading.databinding.FragmentSignUpBinding
 import com.yusuf.cryptocurrencytrading.ui.registration.viewModel.RegistrationViewModel
 import com.yusuf.cryptocurrencytrading.utils.gone
 import com.yusuf.cryptocurrencytrading.utils.visible
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUp : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding

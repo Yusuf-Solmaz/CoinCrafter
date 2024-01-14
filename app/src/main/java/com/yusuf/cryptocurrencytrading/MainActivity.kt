@@ -1,10 +1,12 @@
 package com.yusuf.cryptocurrencytrading
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.navigation.fragment.NavHostFragment
 import com.yusuf.cryptocurrencytrading.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,4 +28,11 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
+
+    fun goToCoinActivity() {
+        val intent = Intent(this, CoinActivity::class.java)
+        startActivity(intent)
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.yusuf.cryptocurrencytrading.CoinActivity
+import com.yusuf.cryptocurrencytrading.MainActivity
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Coin
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
@@ -36,6 +39,7 @@ class MainCryptoFragment : Fragment() {
     private lateinit var viewModel: MainCryptoViewModel
     private lateinit var coinList: List<CryptoCurrency>
     private lateinit var adapter : CoinAdapter
+    private var mContext: Context? = null
 
     private val imageResources = arrayOf(R.drawable.crypto_image1, R.drawable.crypto_image2, R.drawable.crypto_image3)
     private val timer = Timer()
@@ -53,6 +57,11 @@ class MainCryptoFragment : Fragment() {
 
         return binding.root
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,8 +107,9 @@ class MainCryptoFragment : Fragment() {
 
     fun logOut(){
             viewModel.logOut {
-                val action = MainCryptoFragmentDirections.actionMainCryptoFragmentToSignIn()
-                findNavController().navigate(action)
+                if (mContext is CoinActivity) {
+                    (mContext as CoinActivity).goToMainActivity()
+                }
             }
     }
 
