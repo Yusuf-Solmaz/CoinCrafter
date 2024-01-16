@@ -30,15 +30,21 @@ class CoinAdapter(val context: Context,val coinList: List<CryptoCurrency>) : Rec
 
         val coin = coinList[position]
 
+
         holder.binding.cardView.setBackgroundResource(R.drawable.coin_list_color)
+
 
         holder.binding.coinName.text = coin.name
 
-        holder.binding.coinValue.text = coin.quotes[0].price.toString()
+        holder.binding.coinValue.text ="${String.format("%.2f",coin.quotes[0].price)}$"
 
         Glide.with(context).load(
             "https://s2.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png"
         ).placeholder(R.drawable.baseline_currency_bitcoin_24).into(holder.binding.coinImg)
+
+        Glide.with(context).load(
+            "https://s3.coinmarketcap.com/generated/sparklines/web/7d/usd/${coin.id}.png"
+        ).placeholder(R.drawable.baseline_currency_bitcoin_24).into(holder.binding.coinGraphImg)
 
 
         if (0 > coin.quotes[0].percentChange24h){
