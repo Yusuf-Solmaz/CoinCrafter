@@ -95,6 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/viewPager2Main" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/mainColor"
         android:id="@+id/recyclerView"
         android:layout_width="408dp"
         android:layout_height="234dp"
