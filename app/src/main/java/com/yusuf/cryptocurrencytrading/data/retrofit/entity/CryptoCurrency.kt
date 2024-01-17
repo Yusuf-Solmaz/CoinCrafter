@@ -1,5 +1,7 @@
 package com.yusuf.cryptocurrencytrading.data.retrofit.entity
 
+import java.io.Serializable
+
 data class CryptoCurrency(
     val auditInfoList: List<AuditInfo>,
     val badges: List<Int>,
@@ -20,4 +22,4 @@ data class CryptoCurrency(
     val symbol: String,
     val tags: List<String>,
     val totalSupply: Double
-)
+) : Serializable
