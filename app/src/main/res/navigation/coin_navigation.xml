@@ -9,10 +9,27 @@
         android:id="@+id/marketFragment2"
         android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.MarketFragment"
         android:label="fragment_market"
-        tools:layout="@layout/fragment_market" />
+        tools:layout="@layout/fragment_market" >
+        <action
+            android:id="@+id/action_marketFragment2_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainCryptoFragment2"
         android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.MainCryptoFragment"
         android:label="fragment_main_crypto"
-        tools:layout="@layout/fragment_main_crypto" />
+        tools:layout="@layout/fragment_main_crypto" >
+        <action
+            android:id="@+id/action_mainCryptoFragment2_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinDetailFragment"
+        android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.CoinDetailFragment"
+        android:label="fragment_coin_detail"
+        tools:layout="@layout/fragment_coin_detail" >
+        <argument
+            android:name="coin"
+            app:argType="com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency" />
+    </fragment>
 </navigation>
