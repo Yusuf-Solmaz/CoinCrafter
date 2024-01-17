@@ -30,6 +30,10 @@
         tools:layout="@layout/fragment_coin_detail" >
         <argument
             android:name="coin"
-            app:argType="com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency" />
+            app:argType="com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_coinDetailFragment_to_mainCryptoFragment2"
+            app:destination="@id/mainCryptoFragment2" />
     </fragment>
 </navigation>
