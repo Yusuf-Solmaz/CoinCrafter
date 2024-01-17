@@ -1,15 +1,18 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Quote
 import com.yusuf.cryptocurrencytrading.databinding.CoinListCardviewBinding
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.MainCryptoFragmentDirections
 
 class CoinAdapter(val context: Context,val coinList: List<CryptoCurrency>) : RecyclerView.Adapter<CoinAdapter.CoinHolder>() {
 
@@ -33,6 +36,15 @@ class CoinAdapter(val context: Context,val coinList: List<CryptoCurrency>) : Rec
 
         holder.binding.cardView.setBackgroundResource(R.drawable.coin_list_color)
 
+        holder.binding.cardView.setOnClickListener {
+            Log.i("coinMainName",coin.name)
+
+            holder.binding.root.findNavController().navigate(
+                MainCryptoFragmentDirections.actionMainCryptoFragment2ToCoinDetailFragment(coin)
+            )
+
+        }
+
 
         holder.binding.coinName.text = coin.name
 
@@ -44,7 +56,7 @@ class CoinAdapter(val context: Context,val coinList: List<CryptoCurrency>) : Rec
 
         Glide.with(context).load(
             "https://s3.coinmarketcap.com/generated/sparklines/web/7d/usd/${coin.id}.png"
-        ).placeholder(R.drawable.baseline_currency_bitcoin_24).into(holder.binding.coinGraphImg)
+        ).placeholder(R.drawable.graph).into(holder.binding.coinGraphImg)
 
 
         if (0 > coin.quotes[0].percentChange24h){
