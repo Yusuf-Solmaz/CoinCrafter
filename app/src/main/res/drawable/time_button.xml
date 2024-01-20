@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <gradient
+        android:endColor="@color/bottom_navbar"
+        android:startColor="@color/mainColor"
+        android:angle="-130"/>
+    <corners android:radius="10dp"/>
+</shape>
