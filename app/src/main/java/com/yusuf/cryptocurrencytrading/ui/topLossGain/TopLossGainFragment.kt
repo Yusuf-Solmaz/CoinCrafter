@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yusuf.cryptocurrencytrading.databinding.FragmentTopLossGainBinding
-import com.yusuf.cryptocurrencytrading.ui.topLossGain.adapter.MarketAdapter
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.MarketAdapter
 import com.yusuf.cryptocurrencytrading.ui.topLossGain.viewModel.TopLossGainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
