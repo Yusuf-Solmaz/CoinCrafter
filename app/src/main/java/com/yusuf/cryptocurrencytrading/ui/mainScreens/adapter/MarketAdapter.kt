@@ -1,4 +1,4 @@
-package com.yusuf.cryptocurrencytrading.ui.topLossGain.adapter
+package com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter
 
 import android.content.Context
 import android.util.Log
@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.CoinListCardviewBinding
-import com.yusuf.cryptocurrencytrading.ui.mainScreens.MainCryptoFragmentDirections
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.MarketFragmentDirections
 
 class MarketAdapter(var context: Context, var coinList: List<CryptoCurrency>) : RecyclerView.Adapter<MarketAdapter.RecyclerViewHolder>() {
@@ -27,6 +26,11 @@ class MarketAdapter(var context: Context, var coinList: List<CryptoCurrency>) : 
 
     override fun getItemCount(): Int {
         return coinList.size
+    }
+
+    fun updateData( data: List<CryptoCurrency>){
+        coinList = data
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
