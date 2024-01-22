@@ -45,7 +45,8 @@ class RegistrationViewModel : ViewModel() {
                     val user = hashMapOf(
                         "email" to email,
                         "username" to name,
-                        "password" to password
+                        "password" to password,
+                        "balance" to 0.0
                     )
 
                     firestore.collection("users")
