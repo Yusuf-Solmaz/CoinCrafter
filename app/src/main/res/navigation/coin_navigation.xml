@@ -36,4 +36,9 @@
             android:id="@+id/action_coinDetailFragment_to_mainCryptoFragment2"
             app:destination="@id/mainCryptoFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.WalletFragment"
+        android:label="fragment_wallet"
+        tools:layout="@layout/fragment_wallet" />
 </navigation>
