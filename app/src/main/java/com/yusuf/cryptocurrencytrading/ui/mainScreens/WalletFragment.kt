@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.databinding.FragmentWalletBinding
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.AddBalanceDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,7 @@ class WalletFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentWalletBinding.inflate(inflater,container,false)
 
         viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
@@ -35,6 +37,10 @@ class WalletFragment : Fragment() {
 
         viewModel.getBalance()
         observeData()
+
+        binding.deposit.setOnClickListener {
+            showAddBalanceDialog()
+        }
     }
 
     fun observeData(){
@@ -47,5 +53,16 @@ class WalletFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         observeData()
+    }
+
+    private fun showAddBalanceDialog() {
+        val dialog = AddBalanceDialog()
+        dialog.setTargetFragment(this, 0)
+        dialog.show(requireFragmentManager(), "AddBalanceDialog")
+    }
+
+
+    fun addBalance(amount: Double) {
+        viewModel.addToBalance(amount,requireView())
     }
 }
