@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:background="@drawable/withdraw_background"
+        android:background="@drawable/top_gainers_bg"
         android:id="@+id/deposit"
         android:layout_width="109dp"
         android:layout_height="52dp"
@@ -84,7 +84,7 @@
         android:layout_width="109dp"
         android:layout_height="52dp"
         android:layout_marginTop="55dp"
-        android:background="@drawable/top_gainers_bg"
+        android:background="@drawable/withdraw_background"
         android:text="Wıthdraw"
         app:layout_constraintEnd_toStartOf="@+id/deposit"
         app:layout_constraintHorizontal_bias="0.5"
