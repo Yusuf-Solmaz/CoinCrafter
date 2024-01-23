@@ -17,7 +17,7 @@
         android:layout_marginBottom="16dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:background="@drawable/top_gainers_bg"
+        android:background="@drawable/deposit_background"
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
