@@ -3,6 +3,7 @@ package com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel
 import android.content.Context
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -70,6 +71,40 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
         }
     }
 
+    fun checkBalance(amount: Double, view: View) {
+        viewModelScope.launch {
+            try {
+
+                if (getUserDocument() != null){
+                    val currentBalance = getUserDocument()!!.getDouble("balance") ?: 0.0
+                    val newBalance = currentBalance - amount
+
+                    if (currentBalance == 0.0 ){
+                        Toast.makeText(view.context,"Your balance is: 0.0",Toast.LENGTH_LONG).show()
+                    }
+
+                    else if (newBalance<0){
+                        Toast.makeText(view.context,"You cannot withdraw more balance than the balance you have.",Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        firestore.collection("users").document(getUserId())
+                            .update("balance", newBalance)
+                            .await()
+
+                        balance.value = newBalance
+
+                        Snackbar.make(view,"Checking Balance Successful",Snackbar.LENGTH_LONG).show()
+                    }
+
+                }
+
+
+            } catch (e: Exception) {
+                Snackbar.make(view,"Checking Balance Not Successful",Snackbar.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun getUserId(): String{
         return auth.currentUser?.uid ?: ""
     }
@@ -77,5 +112,7 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
     private suspend fun getUserDocument(): DocumentSnapshot? {
         return firestore.collection("users").document(getUserId()).get().await()
     }
+
+
 
 }

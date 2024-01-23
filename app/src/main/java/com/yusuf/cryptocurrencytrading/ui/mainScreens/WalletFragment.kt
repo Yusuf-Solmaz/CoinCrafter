@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.databinding.FragmentWalletBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.AddBalanceDialog
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.CheckBalanceDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +42,11 @@ class WalletFragment : Fragment() {
         binding.deposit.setOnClickListener {
             showAddBalanceDialog()
         }
+
+        binding.withdraw.setOnClickListener {
+            showCheckBalanceDialog()
+        }
+
     }
 
     fun observeData(){
@@ -61,8 +67,18 @@ class WalletFragment : Fragment() {
         dialog.show(requireFragmentManager(), "AddBalanceDialog")
     }
 
+    private fun showCheckBalanceDialog(){
+        val dialog = CheckBalanceDialog()
+        dialog.setTargetFragment(this, 0)
+        dialog.show(requireFragmentManager(), "CheckBalanceDialog")
+    }
+
 
     fun addBalance(amount: Double) {
         viewModel.addToBalance(amount,requireView())
+    }
+
+    fun checkBalance(amount: Double) {
+        viewModel.checkBalance(amount,requireView())
     }
 }
