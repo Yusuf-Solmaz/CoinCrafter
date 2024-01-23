@@ -20,7 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
+        android:background="@color/mainColor"
         android:id="@+id/imageViewLogOut"
         android:layout_width="59dp"
         android:layout_height="37dp"
