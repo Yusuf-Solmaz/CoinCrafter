@@ -1,5 +1,6 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -73,13 +75,30 @@ class MainCryptoFragment : Fragment() {
 
         getUserName()
 
+        getData()
         setupRecyclerView()
         observeCoins()
 
 
 
+
         binding.imageViewLogOut.setOnClickListener {
-            logOut()
+            AlertDialog.Builder(requireContext())
+            .setTitle("Log Out")
+            .setMessage("Are You Sure You Want to Log Out?")
+
+
+            .setPositiveButton("Yes") { dialog, which ->
+                logOut()
+                dialog.dismiss()
+            }
+
+
+            .setNegativeButton("No") { dialog, which ->
+
+                dialog.dismiss()
+            }
+                .create().show()
         }
 
 
@@ -116,6 +135,10 @@ class MainCryptoFragment : Fragment() {
     private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.layoutManager = layoutManager
+    }
+
+    fun getData(){
+        viewModel.getAllCoins()
     }
 
     fun observeCoins(){
