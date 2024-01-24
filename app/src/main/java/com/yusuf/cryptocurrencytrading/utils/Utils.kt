@@ -42,7 +42,7 @@ class Utils{
 
         fun CryptoCurrency.toCryptoFirebase(amount:Double) : CryptoFirebase{
             return CryptoFirebase(
-                name,quotes[0].price,amount
+                amount,quotes[0].price, name,id
             )
         }
 
