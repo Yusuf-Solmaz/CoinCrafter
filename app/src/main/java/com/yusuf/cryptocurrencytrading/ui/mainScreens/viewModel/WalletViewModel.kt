@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +26,29 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
     private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     var balance = MutableLiveData<Double>()
+    var userCoinList = MutableLiveData<List<CryptoFirebase>>()
+
+
+    fun getUserCoins(){
+
+        viewModelScope.launch {
+            try {
+
+                if (getUserDocument() != null){
+                    Log.i("userCoin",getUserDocument()!!.get("userCoin").toString())
+
+                    userCoinList.value = getUserDocument()!!.get("userCoin") as List<CryptoFirebase>?
+
+
+                }
+
+            }
+            catch (e:Exception){
+                println(e.localizedMessage)
+            }
+        }
+
+    }
 
     fun getBalance() {
         viewModelScope.launch {
