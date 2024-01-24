@@ -1,6 +1,6 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel
 
-import android.content.Context
+
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -12,9 +12,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
+import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Coin
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -26,26 +26,33 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
     private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     var balance = MutableLiveData<Double>()
-    var userCoinList = MutableLiveData<List<CryptoFirebase>>()
+
+    var coins = MutableLiveData<Coin>()
+
+    var userCoinList = MutableLiveData<ArrayList<CryptoFirebase>>()
 
 
-    fun getUserCoins(){
-
+    fun getUserCoins() {
         viewModelScope.launch {
             try {
+                if (getUserDocument() != null) {
+                    Log.i("userCoin", getUserDocument()!!.get("userCoin").toString())
 
-                if (getUserDocument() != null){
-                    Log.i("userCoin",getUserDocument()!!.get("userCoin").toString())
+                    userCoinList.value = getUserDocument()!!.get("userCoin") as ArrayList<CryptoFirebase>?
 
-                    userCoinList.value = getUserDocument()!!.get("userCoin") as List<CryptoFirebase>?
-
-
+                    Log.i("userCoinValue", userCoinList.value.toString())
                 }
-
-            }
-            catch (e:Exception){
+            } catch (e: Exception) {
                 println(e.localizedMessage)
             }
+        }
+    }
+
+
+    fun getAllCoins(){
+        viewModelScope.launch {
+
+            coins.value = repo.getAllCoins()
         }
 
     }
