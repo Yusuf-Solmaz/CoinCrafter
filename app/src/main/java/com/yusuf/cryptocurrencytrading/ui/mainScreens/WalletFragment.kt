@@ -8,8 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.yusuf.cryptocurrencytrading.R
+import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentWalletBinding
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.WalletUserCryptoAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.AddBalanceDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.CheckBalanceDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
@@ -21,6 +24,9 @@ class WalletFragment : Fragment() {
 
     private lateinit var binding: FragmentWalletBinding
     private lateinit var viewModel: WalletViewModel
+    private lateinit var adapter: WalletUserCryptoAdapter
+
+    private lateinit var currentCoinList: List<CryptoCurrency>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +42,8 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getBalance()
+
+        setupRecyclerView()
         observeData()
 
         binding.deposit.setOnClickListener {
@@ -49,16 +56,37 @@ class WalletFragment : Fragment() {
 
     }
 
+    private fun setupRecyclerView() {
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewMyCrypto.layoutManager = layoutManager
+    }
+
     fun observeData(){
         viewModel.balance.observe(viewLifecycleOwner) {
             Log.i("balanceData",it.toString())
             binding.totalBalance.text = "$it$"
+        }
+
+        viewModel.coins.observe(viewLifecycleOwner){
+            currentCoin ->
+            Log.i("currentCoinList",currentCoin.data.cryptoCurrencyList[0].toString())
+            currentCoinList = currentCoin.data.cryptoCurrencyList
+        }
+
+        viewModel.userCoinList.observe(viewLifecycleOwner){
+
+            Log.i("userCoinListWalletFragment",it.toString())
+            adapter = WalletUserCryptoAdapter(requireContext(),it,currentCoinList)
+            binding.recyclerViewMyCrypto.adapter = adapter
         }
     }
 
     override fun onResume() {
         super.onResume()
         observeData()
+        viewModel.getAllCoins()
+        viewModel.getUserCoins()
+        viewModel.getBalance()
     }
 
     private fun showAddBalanceDialog() {
@@ -81,4 +109,6 @@ class WalletFragment : Fragment() {
     fun checkBalance(amount: Double) {
         viewModel.checkBalance(amount,requireView())
     }
+
+
 }
