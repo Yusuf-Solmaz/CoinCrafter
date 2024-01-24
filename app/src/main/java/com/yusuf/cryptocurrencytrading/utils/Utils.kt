@@ -3,6 +3,8 @@ package com.yusuf.cryptocurrencytrading.utils
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
+import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 
 class Utils{
     companion object{
@@ -37,6 +39,12 @@ class Utils{
 
         const val BASE_URL ="https://api.coinmarketcap.com/"
         const val GET_COINS = "data-api/v3/cryptocurrency/listing?start1&limit=500"
+
+        fun CryptoCurrency.toCryptoFirebase(amount:Double) : CryptoFirebase{
+            return CryptoFirebase(
+                name,quotes[0].price,amount
+            )
+        }
 
     }
 }
