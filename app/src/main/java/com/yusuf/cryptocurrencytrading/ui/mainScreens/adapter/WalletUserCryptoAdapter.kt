@@ -12,7 +12,7 @@ import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.UserCryptoRowBinding
 
-class WalletUserCryptoAdapter(val context: Context,var userCoins: ArrayList<CryptoFirebase>,var coins:List<CryptoCurrency>): RecyclerView.Adapter<WalletUserCryptoAdapter.UserCryptoHolder>() {
+class WalletUserCryptoAdapter(val context: Context,var userCoins: List<CryptoFirebase>,var coins:List<CryptoCurrency>): RecyclerView.Adapter<WalletUserCryptoAdapter.UserCryptoHolder>() {
 
     class UserCryptoHolder(val binding:UserCryptoRowBinding) : RecyclerView.ViewHolder(binding.root){
 
