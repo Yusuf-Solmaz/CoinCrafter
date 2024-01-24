@@ -8,16 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentCoinDetailBinding
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.BuyCryptoDialog
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.CoinDetailViewModel
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class CoinDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentCoinDetailBinding
+    private lateinit var viewModel: CoinDetailViewModel
+    private lateinit var coin : CryptoCurrency
 
     private val bundle : CoinDetailFragmentArgs by navArgs()
 
@@ -27,6 +35,7 @@ class CoinDetailFragment : Fragment() {
     ): View {
         binding = FragmentCoinDetailBinding.inflate(inflater,container,false)
 
+        viewModel = ViewModelProvider(this).get(CoinDetailViewModel::class.java)
 
 
         return binding.root
@@ -35,12 +44,16 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val coin = bundle.coin!!
+        coin = bundle.coin!!
         Log.i("coinDetailCoin",coin.name)
 
         loadWebViewChart(coin)
         setButtonOnClick(coin)
         handleViews(coin)
+
+        binding.buy.setOnClickListener {
+            showBuyCryptoDialog()
+        }
 
     }
     private fun setButtonOnClick(coin: CryptoCurrency) {
@@ -201,6 +214,26 @@ class CoinDetailFragment : Fragment() {
         }
     }
 
+    private fun showBuyCryptoDialog() {
+
+        val buyButtonVisibility = binding.buy.visibility
+        binding.buy.visibility = View.INVISIBLE
+
+        val dialog = BuyCryptoDialog()
+        dialog.setTargetFragment(this, 0)
+
+
+        dialog.setOnDismissListener {
+            binding.buy.visibility = buyButtonVisibility
+        }
+
+        dialog.show(requireFragmentManager(), "BuyCryptoDialog")
+    }
+
+
+    fun buyCrypto(amount: Double) {
+        viewModel.buyCrypto(amount,coin, requireView())
+    }
 
 
 }
