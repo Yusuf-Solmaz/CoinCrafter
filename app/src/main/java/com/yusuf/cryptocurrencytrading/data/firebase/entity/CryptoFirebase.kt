@@ -3,7 +3,8 @@ package com.yusuf.cryptocurrencytrading.data.firebase.entity
 import java.io.Serializable
 
 data class CryptoFirebase(
-    val name: String,
+    val amount: Double,
     val price: Double,
-    val amount: Double
+    val name: String,
+    val id: Int
 ) : Serializable
