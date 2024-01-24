@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
 import com.yusuf.cryptocurrencytrading.utils.Utils
 
 
@@ -46,7 +47,8 @@ class RegistrationViewModel : ViewModel() {
                         "email" to email,
                         "username" to name,
                         "password" to password,
-                        "balance" to 0.0
+                        "balance" to 0.0,
+                        "userCoin" to ArrayList<CryptoFirebase>()
                     )
 
                     firestore.collection("users")
