@@ -1,5 +1,6 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.WalletFragment
 
 class CheckBalanceDialog : DialogFragment() {
+
+    private var onDismissListener: (() -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,5 +45,14 @@ class CheckBalanceDialog : DialogFragment() {
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
         dialog?.window?.setGravity(Gravity.CENTER)
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismissListener?.invoke()
+    }
+
+    fun setOnDismissListener(listener: () -> Unit) {
+        this.onDismissListener = listener
     }
 }
