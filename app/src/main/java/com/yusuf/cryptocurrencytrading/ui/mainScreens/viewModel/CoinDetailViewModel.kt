@@ -52,11 +52,16 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
                             firestore.collection("users").document(getUserId())
                                 .update("userCoin", FieldValue.arrayUnion(boughtCoin.copy(amount = newAmount)))
                                 .await()
+
+                            Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
+
                         } else {
 
                             firestore.collection("users").document(getUserId())
                                 .update("userCoin", FieldValue.arrayUnion(boughtCoin))
                                 .await()
+
+                            Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
                         }
                     }
 
