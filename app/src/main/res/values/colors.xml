@@ -14,4 +14,5 @@
     <color name="green">#00FF0A</color>
     <color name="purple">#673AB7</color>
     <color name="dark_purple">#2B0570</color>
+    <color name="walletRecyclerTitle">#2196F3</color>
 </resources>
