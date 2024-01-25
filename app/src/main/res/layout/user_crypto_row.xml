@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
@@ -22,54 +22,58 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
 
+            <TextView
+                android:textColor="@color/white"
                 android:id="@+id/coinName"
                 android:layout_width="79dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="22dp"
                 android:text="TextView"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toStartOf="@+id/coinProfit"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/coinImg"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/coinImg"
-                android:layout_width="41dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/coinName"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/coinAmount"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_currency_bitcoin_24" />
-
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/coinProfit"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
                 android:text="TextView"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toStartOf="@+id/button"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/coinName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonSell"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button"
-                android:layout_width="94dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="16dp"
+                android:id="@+id/buttonSell"
+                android:layout_width="83dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
                 android:background="@drawable/withdraw_background"
                 android:text="Sell"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/coinProfit"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/coinAmount"
+                android:layout_width="65dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/coinName"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
