@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,199 +8,203 @@
     tools:context=".ui.mainScreens.CoinDetailFragment"
     android:background="@color/mainColor">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/coinName"
-        android:layout_width="101dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="BTC"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-
-        android:id="@+id/backImageButton"
-        android:layout_width="50dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/mainColor"
-        android:src="@drawable/baseline_arrow_back_ios_new_24"
-        app:layout_constraintEnd_toStartOf="@+id/coinName"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/favImageButton"
-        android:layout_width="50dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:background="@color/mainColor"
-        android:src="@drawable/unfav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.776"
-        app:layout_constraintStart_toEndOf="@+id/coinName"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <WebView
-        android:id="@+id/coinWebView"
-        android:layout_width="408dp"
-        android:layout_height="217dp"
-        android:layout_marginTop="212dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coinName" />
-
-    <TextView
-        android:id="@+id/coinPrice"
-        android:layout_width="109dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="100dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coinName" />
-
-    <ImageView
-        android:id="@+id/coinImageView"
-        android:layout_width="48dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/baseline_currency_bitcoin_24"
-        app:layout_constraintEnd_toStartOf="@+id/coinPrice"
-        app:layout_constraintHorizontal_bias="0.689"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backImageButton" />
-
-    <TextView
-        android:id="@+id/coinRatio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.385"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coinPrice" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="399dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/coin_list_color"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coinWebView">
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button1M"
-            android:layout_width="50dp"
+        <TextView
+            android:id="@+id/coinName"
+            android:layout_width="101dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="BTC"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/backImageButton"
+            android:layout_width="50dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/mainColor"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            app:layout_constraintEnd_toStartOf="@+id/coinName"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/favImageButton"
+            android:layout_width="50dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:text="1 MIN"
-            android:textColor="@color/white"
+            android:background="@color/mainColor"
+            android:src="@drawable/unfav"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintHorizontal_bias="0.776"
+            app:layout_constraintStart_toEndOf="@+id/coinName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <WebView
+            android:id="@+id/coinWebView"
+            android:layout_width="408dp"
+            android:layout_height="217dp"
+            android:layout_marginTop="212dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+            app:layout_constraintTop_toBottomOf="@+id/coinName"
+            tools:ignore="WebViewLayout" />
+
+        <TextView
+            android:id="@+id/coinPrice"
+            android:layout_width="109dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="100dp"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.447"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coinName" />
+
+        <ImageView
+            android:id="@+id/coinImageView"
+            android:layout_width="48dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/baseline_currency_bitcoin_24"
+            app:layout_constraintEnd_toStartOf="@+id/coinPrice"
+            app:layout_constraintHorizontal_bias="0.689"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backImageButton" />
+
+        <TextView
+            android:id="@+id/coinRatio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.385"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coinPrice" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="399dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/coin_list_color"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.833"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coinWebView">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button1M"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@null"
+                android:text="1 MIN"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button15Min"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@null"
+                android:text="15 MIN"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button1H"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@null"
+                android:text="1 Hour"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button4H"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@null"
+                android:text="4 Hour"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button1D"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@null"
+                android:text="1 Day"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button1W"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="1 Week"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button15Min"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:text="15 MIN"
-            android:textColor="@color/white"
+            android:id="@+id/buy"
+            android:layout_width="270dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/top_gainers_bg"
+            android:text="BUY"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button1H"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:text="1 Hour"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button4H"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:text="4 Hour"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button1D"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:text="1 Day"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button1W"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="1 Week"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goToSingUp" />
-
-
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:textSize="20sp"
-        android:id="@+id/buy"
-        android:layout_width="270dp"
-        android:layout_height="53dp"
-        android:background="@drawable/top_gainers_bg"
-        android:text="BUY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
