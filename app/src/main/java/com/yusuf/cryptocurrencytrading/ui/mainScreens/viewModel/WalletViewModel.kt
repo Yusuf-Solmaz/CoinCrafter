@@ -1,6 +1,7 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel
 
 
+import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -10,9 +11,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Coin
+import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -136,13 +139,120 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
         }
     }
 
-    private fun getUserId(): String{
-        return auth.currentUser?.uid ?: ""
+    fun sellCrypto(coinName: String, sellAmount: Double, view: View, coins: List<CryptoCurrency>) {
+        viewModelScope.launch {
+            try {
+                val userId = getUserId()
+                val userCoins = getUserDocument()?.get("userCoin") as? List<HashMap<String, Any>>
+
+                if (userCoins != null) {
+                    val existingCoin = userCoins.find { it["name"] == coinName }
+
+                    if (existingCoin != null) {
+                        var existingAmount = existingCoin["amount"] as Double
+                        var newAmount = existingAmount - sellAmount
+
+                        val epsilon = 1e-50
+
+                        if (newAmount > -epsilon && newAmount < epsilon) {
+                            newAmount = 0.0
+                        }
+
+                        if (newAmount >= 0) {
+
+                            firestore.collection("users").document(userId)
+                                .update("userCoin", FieldValue.arrayRemove(existingCoin))
+                                .await()
+
+                            if (newAmount > epsilon) {
+
+                                val updatedCoin = existingCoin.toMutableMap()
+                                updatedCoin["amount"] = newAmount
+                                firestore.collection("users").document(userId)
+                                    .update("userCoin", FieldValue.arrayUnion(updatedCoin))
+                                    .await()
+                            }
+
+                            getUserCoins()
+
+                            for (data in coins) {
+                                if (data.name != existingCoin["name"] as String) {
+                                    continue
+                                } else {
+                                    addToBalance(sellAmount * data.quotes[0].price, view)
+                                }
+                            }
+
+                            Snackbar.make(view, "Crypto sold successfully", Snackbar.LENGTH_LONG).show()
+                        } else {
+                            Snackbar.make(view, "The amount entered cannot be greater than the current amount.", Snackbar.LENGTH_LONG).show()
+                        }
+                    } else {
+                        Snackbar.make(view, "Crypto not found in user's wallet", Snackbar.LENGTH_LONG).show()
+                    }
+                } else {
+                    Snackbar.make(view, "Crypto Not Found", Snackbar.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Snackbar.make(view, "Selling Crypto Failed: ${e.localizedMessage}", Snackbar.LENGTH_LONG).show()
+            }
+        }
     }
 
-    private suspend fun getUserDocument(): DocumentSnapshot? {
-        return firestore.collection("users").document(getUserId()).get().await()
+    fun sellAllSelectedCrypto(coinName: String, view: View, coins: List<CryptoCurrency>){
+        viewModelScope.launch {
+            try {
+                val userId = getUserId()
+                val userCoins = getUserDocument()?.get("userCoin") as? List<HashMap<String, Any>>
+
+
+                if (userCoins != null) {
+                    val existingCoin = userCoins.find { it["name"] == coinName }
+
+                    if (existingCoin != null) {
+
+                        var existingAmount = existingCoin["amount"] as Double
+
+
+                        firestore.collection("users").document(userId)
+                            .update("userCoin", FieldValue.arrayRemove(existingCoin))
+                            .await()
+
+                            getUserCoins()
+
+                            for (data in coins) {
+                                if (data.name != existingCoin["name"] as String) {
+                                    continue
+                                } else {
+                                    addToBalance(existingAmount * data.quotes[0].price, view)
+                                }
+                            }
+
+                            Snackbar.make(view, "Crypto sold successfully", Snackbar.LENGTH_LONG).show()
+                        } else {
+                            Snackbar.make(view, "The amount entered cannot be greater than the current amount.", Snackbar.LENGTH_LONG).show()
+                        }
+                    } else {
+                        Snackbar.make(view, "Crypto not found in user's wallet", Snackbar.LENGTH_LONG).show()
+                    }
+                }
+             catch (e: Exception) {
+                Snackbar.make(view, "Selling Crypto Failed: ${e.localizedMessage}", Snackbar.LENGTH_LONG).show()
+            }
+        }
+
     }
+
+
+
+
+    private fun getUserId(): String{
+            return auth.currentUser?.uid ?: ""
+        }
+
+        private suspend fun getUserDocument(): DocumentSnapshot? {
+            return firestore.collection("users").document(getUserId()).get().await()
+        }
 
 
 
