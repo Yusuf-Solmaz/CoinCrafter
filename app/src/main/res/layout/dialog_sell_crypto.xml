@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/bottom_navbar">
+
+    <EditText
+        android:textColor="@color/white"
+        android:id="@+id/sellEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Crypto Amount"
+        android:textColorHint="@color/white"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/withdraw_background"
+        android:id="@+id/sellButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sell"
+        android:onClick="onCheckButtonClick"/>
+
+    <TextView
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Or"
+        android:layout_gravity="center"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/withdraw_background"
+        android:id="@+id/sellAllButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sell All"
+        android:onClick="onCheckButtonClick"/>
+
+</LinearLayout>
