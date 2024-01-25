@@ -40,7 +40,6 @@ class WalletUserCryptoAdapter(val context: Context,var userCoins: List<CryptoFir
         val name = coinHashMap["name"] as String
         val id = (coinHashMap["id"] as Long).toInt()
 
-        // Geri kalan işlemler...
         val coin = CryptoFirebase(amount, price, name, id)
         Log.i("WalletAdapterCoin",userCoins.toString())
 
