@@ -6,17 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentWalletBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.WalletUserCryptoAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.AddBalanceDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.CheckBalanceDialog
-import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.WalletViewModel
+import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,7 +62,7 @@ class WalletFragment : Fragment() {
     fun observeData(){
         viewModel.balance.observe(viewLifecycleOwner) {
             Log.i("balanceData",it.toString())
-            binding.totalBalance.text = "$it$"
+            binding.totalBalance.text = "${String.format("%.02f", it)}$"
         }
 
         viewModel.coins.observe(viewLifecycleOwner){
@@ -76,27 +74,38 @@ class WalletFragment : Fragment() {
         viewModel.userCoinList.observe(viewLifecycleOwner){
 
             Log.i("userCoinListWalletFragment",it.toString())
-            adapter = WalletUserCryptoAdapter(requireContext(),it,currentCoinList)
+            adapter = WalletUserCryptoAdapter(viewModel,requireContext(),it,currentCoinList)
             binding.recyclerViewMyCrypto.adapter = adapter
         }
     }
 
     override fun onResume() {
         super.onResume()
-        observeData()
+
         viewModel.getAllCoins()
         viewModel.getUserCoins()
         viewModel.getBalance()
+        observeData()
     }
 
     private fun showAddBalanceDialog() {
         val dialog = AddBalanceDialog()
+
+        dialog.setOnDismissListener{
+            binding.recyclerViewMyCrypto.visible()
+        }
+
         dialog.setTargetFragment(this, 0)
         dialog.show(requireFragmentManager(), "AddBalanceDialog")
     }
 
     private fun showCheckBalanceDialog(){
         val dialog = CheckBalanceDialog()
+
+        dialog.setOnDismissListener{
+            binding.recyclerViewMyCrypto.visible()
+        }
+
         dialog.setTargetFragment(this, 0)
         dialog.show(requireFragmentManager(), "CheckBalanceDialog")
     }
