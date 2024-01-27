@@ -9,12 +9,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yusuf.cryptocurrencytrading.data.firebase.entity.TransactionsFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
 import com.yusuf.cryptocurrencytrading.utils.Utils.Companion.toCryptoFirebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,12 +55,26 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
                                 .update("userCoin", FieldValue.arrayUnion(boughtCoin.copy(amount = newAmount)))
                                 .await()
 
+
+
+                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time)
+
+                            firestore.collection("users").document(getUserId())
+                                .update("transactions", FieldValue.arrayUnion(transaction))
+                                .await()
+
                             Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
 
                         } else {
 
                             firestore.collection("users").document(getUserId())
                                 .update("userCoin", FieldValue.arrayUnion(boughtCoin))
+                                .await()
+
+                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time)
+
+                            firestore.collection("users").document(getUserId())
+                                .update("transactions", FieldValue.arrayUnion(transaction))
                                 .await()
 
                             Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
