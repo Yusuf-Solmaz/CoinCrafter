@@ -14,12 +14,14 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
+import com.yusuf.cryptocurrencytrading.data.firebase.entity.TransactionsFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Coin
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -180,6 +182,15 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
                                     continue
                                 } else {
                                     addToBalance(sellAmount * data.quotes[0].price, view)
+                                    val amountPrice = sellAmount * data.quotes[0].price
+
+                                    val coinId = (existingCoin["id"]as Long).toInt()
+
+                                    val transaction = TransactionsFirebase(amountPrice,sellAmount,status = "Sold",name = coinName, id = coinId,date = Calendar.getInstance().time)
+
+                                    firestore.collection("users").document(getUserId())
+                                        .update("transactions", FieldValue.arrayUnion(transaction))
+                                        .await()
                                 }
                             }
 
@@ -212,6 +223,7 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
                     if (existingCoin != null) {
 
                         var existingAmount = existingCoin["amount"] as Double
+                        val coinName = existingCoin["name"] as String
 
 
                         firestore.collection("users").document(userId)
@@ -225,6 +237,17 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
                                     continue
                                 } else {
                                     addToBalance(existingAmount * data.quotes[0].price, view)
+
+                                    val amountPrice = existingAmount * data.quotes[0].price
+
+                                    val coinId = (existingCoin["id"]as Long).toInt()
+
+                                    val transaction = TransactionsFirebase(amountPrice,existingAmount,status = "Sold",name = coinName, id = coinId,date = Calendar.getInstance().time)
+
+                                    firestore.collection("users").document(getUserId())
+                                        .update("transactions", FieldValue.arrayUnion(transaction))
+                                        .await()
+
                                 }
                             }
 
