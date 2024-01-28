@@ -57,7 +57,7 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
 
 
 
-                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time)
+                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
 
                             firestore.collection("users").document(getUserId())
                                 .update("transactions", FieldValue.arrayUnion(transaction))
@@ -71,7 +71,7 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
                                 .update("userCoin", FieldValue.arrayUnion(boughtCoin))
                                 .await()
 
-                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time)
+                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
 
                             firestore.collection("users").document(getUserId())
                                 .update("transactions", FieldValue.arrayUnion(transaction))
