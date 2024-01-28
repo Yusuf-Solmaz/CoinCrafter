@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainCryptoFragment2_to_coinDetailFragment"
             app:destination="@id/coinDetailFragment" />
+        <action
+            android:id="@+id/action_mainCryptoFragment2_to_allCoinsFragment"
+            app:destination="@id/allCoinsFragment" />
     </fragment>
     <fragment
         android:id="@+id/coinDetailFragment"
@@ -46,4 +49,13 @@
         android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.TransactionsFragment"
         android:label="fragment_transactions"
         tools:layout="@layout/fragment_transactions" />
+    <fragment
+        android:id="@+id/allCoinsFragment"
+        android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.AllCoinsFragment"
+        android:label="fragment_all_coins"
+        tools:layout="@layout/fragment_all_coins" >
+        <action
+            android:id="@+id/action_allCoinsFragment_to_coinDetailFragment2"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
 </navigation>
