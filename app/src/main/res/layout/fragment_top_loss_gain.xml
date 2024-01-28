@@ -7,6 +7,7 @@
     tools:context=".ui.topLossGain.TopLossGainFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginStart="15dp"
         android:id="@+id/topLossGainRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
