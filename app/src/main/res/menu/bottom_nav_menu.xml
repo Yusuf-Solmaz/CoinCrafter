@@ -16,7 +16,7 @@
         android:icon="@drawable/baseline_add_shopping_cart_24"
         android:title="Market" />
     <item
-        android:id="@+id/transactions"
+        android:id="@+id/transactionsFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Transactions"
