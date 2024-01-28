@@ -101,6 +101,10 @@ class MainCryptoFragment : Fragment() {
                 .create().show()
         }
 
+        binding.textViewViewAll.setOnClickListener{
+            findNavController().navigate(MainCryptoFragmentDirections.actionMainCryptoFragment2ToAllCoinsFragment())
+        }
+
 
     }
 
