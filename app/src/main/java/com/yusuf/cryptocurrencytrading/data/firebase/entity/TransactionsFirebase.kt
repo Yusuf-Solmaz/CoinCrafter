@@ -10,5 +10,5 @@ data class TransactionsFirebase (
     val status: String,
     val name: String,
     val id: Int,
-    val date: Date = Calendar.getInstance().time
+    val date: String
 ):Serializable
