@@ -37,15 +37,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <CheckBox
             android:id="@+id/favImageButton"
-            android:layout_width="50dp"
-            android:layout_height="41dp"
+            app:buttonTint="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/mainColor"
-            android:src="@drawable/unfav"
+            android:button="@drawable/selector_wishlist_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.776"
             app:layout_constraintStart_toEndOf="@+id/coinName"
