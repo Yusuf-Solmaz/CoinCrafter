@@ -27,7 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Wallet"
-        android:icon="@drawable/baseline_account_balance_wallet_24"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/navbottom_ico_wallet"
 
         />
 </menu>
