@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -50,6 +51,7 @@ class CoinDetailFragment : Fragment() {
         loadWebViewChart(coin)
         setButtonOnClick(coin)
         handleViews(coin)
+        isFavControl(coin)
 
         binding.buy.setOnClickListener {
             showBuyCryptoDialog()
@@ -233,6 +235,25 @@ class CoinDetailFragment : Fragment() {
 
     fun buyCrypto(amount: Double) {
         viewModel.buyCrypto(amount,coin, requireView())
+    }
+
+    private fun isFavControl(coin: CryptoCurrency){
+        viewModel.isFavourite(coin)
+
+        viewModel.isFavourite.observe(viewLifecycleOwner) { isChecked ->
+            Log.i("isFavValueFragment", viewModel.isFavourite.value.toString())
+            binding.favImageButton.isChecked = isChecked
+
+            binding.favImageButton.setOnCheckedChangeListener { checkBox, isChecked ->
+                if (!isChecked) {
+                    Toast.makeText(requireContext(), "Deleted From Favourites", Toast.LENGTH_SHORT).show()
+                    viewModel.deleteFromFavourites(crypto = coin)
+                } else {
+                    Toast.makeText(requireContext(), "Added to Favourites", Toast.LENGTH_SHORT).show()
+                    viewModel.addToFavourites(crypto = coin)
+                }
+            }
+        }
     }
 
 
