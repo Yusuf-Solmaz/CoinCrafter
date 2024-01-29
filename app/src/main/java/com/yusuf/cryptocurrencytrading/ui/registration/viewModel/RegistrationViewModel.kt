@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
+import com.yusuf.cryptocurrencytrading.data.firebase.entity.FavouriteCryptosFirebase
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.TransactionsFirebase
 import com.yusuf.cryptocurrencytrading.utils.Utils
 
@@ -50,7 +51,8 @@ class RegistrationViewModel : ViewModel() {
                         "password" to password,
                         "balance" to 0.0,
                         "userCoin" to ArrayList<CryptoFirebase>(),
-                        "transactions" to ArrayList<TransactionsFirebase>()
+                        "transactions" to ArrayList<TransactionsFirebase>(),
+                        "favourites" to ArrayList<FavouriteCryptosFirebase>()
                     )
 
                     firestore.collection("users")
