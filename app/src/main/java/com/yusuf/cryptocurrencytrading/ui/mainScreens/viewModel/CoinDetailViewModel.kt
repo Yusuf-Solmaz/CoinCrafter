@@ -1,7 +1,9 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel
 
 
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
@@ -9,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yusuf.cryptocurrencytrading.data.firebase.entity.FavouriteCryptosFirebase
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.TransactionsFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
@@ -19,12 +22,14 @@ import kotlinx.coroutines.tasks.await
 import java.util.Calendar
 import javax.inject.Inject
 
+
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewModel() {
 
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
+    var isFavourite =  MutableLiveData<Boolean>()
 
 
     fun buyCrypto(amountPrice: Double, crypto: CryptoCurrency, view: View) {
@@ -90,6 +95,57 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
                 } catch (e: Exception) {
                     println(e.localizedMessage)
                 }
+            }
+        }
+    }
+
+    fun addToFavourites(crypto: CryptoCurrency){
+        viewModelScope.launch {
+            val favCoin = FavouriteCryptosFirebase(crypto.name,crypto.id)
+
+            firestore.collection("users").document(getUserId())
+                .update("favourites", FieldValue.arrayUnion(favCoin))
+                .await()
+
+            isFavourite.value = true
+        }
+
+    }
+
+    fun deleteFromFavourites(crypto: CryptoCurrency) {
+        viewModelScope.launch {
+            try {
+                val favCoin = FavouriteCryptosFirebase(crypto.name, crypto.id)
+
+                firestore.collection("users").document(getUserId())
+                    .update("favourites", FieldValue.arrayRemove(favCoin))
+                    .await()
+
+                isFavourite.value = false
+            } catch (e: Exception) {
+                Log.e("CoinDetailFav", "Error deleting from favourites: ${e.localizedMessage}")
+            }
+        }
+    }
+
+
+
+    fun isFavourite(crypto: CryptoCurrency) {
+        viewModelScope.launch {
+            val userId = getUserId()
+            try {
+                val userDoc = firestore.collection("users").document(userId).get().await()
+                val favourites = userDoc.get("favourites") as? List<HashMap<String, Any>>
+
+                isFavourite.value = favourites?.any {
+                    val isFavorite = it["id"].toString() == crypto.id.toString()
+
+                   return@any isFavorite
+                } ?: false
+
+            } catch (e: Exception) {
+                Log.e("CoinDetailViewModel", "Error checking if crypto is favorite: ${e.localizedMessage}")
+                isFavourite.value = false
             }
         }
     }
