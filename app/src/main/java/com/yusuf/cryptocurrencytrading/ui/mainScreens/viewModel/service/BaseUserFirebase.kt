@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 open class BaseUserFirebase @Inject constructor(private val auth: FirebaseAuth, private val firestore: FirebaseFirestore) {
 
-    private fun getUserId(): String{
+     fun getUserId(): String{
         return auth.currentUser?.uid ?: ""
     }
 
