@@ -58,4 +58,13 @@
             android:id="@+id/action_allCoinsFragment_to_coinDetailFragment2"
             app:destination="@id/coinDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteCoinsFragment"
+        android:name="com.yusuf.cryptocurrencytrading.ui.mainScreens.FavouriteCoinsFragment"
+        android:label="fragment_favourite_coins"
+        tools:layout="@layout/fragment_favourite_coins" >
+        <action
+            android:id="@+id/action_favouriteCoinsFragment_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
 </navigation>
