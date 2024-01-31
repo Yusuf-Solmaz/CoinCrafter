@@ -15,6 +15,7 @@ import com.yusuf.cryptocurrencytrading.data.firebase.entity.FavouriteCryptosFire
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.TransactionsFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.service.BaseUserFirebase
 import com.yusuf.cryptocurrencytrading.utils.Utils.Companion.toCryptoFirebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,17 +25,16 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewModel() {
+class CoinDetailViewModel @Inject constructor(val repo: CoinRepository,val baseUserFirebase: BaseUserFirebase,private val firestore: FirebaseFirestore): ViewModel() {
 
-    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     var isFavourite =  MutableLiveData<Boolean>()
 
 
     fun buyCrypto(amountPrice: Double, crypto: CryptoCurrency, view: View) {
         viewModelScope.launch {
-            val currentBalance = getUserDocument()?.getDouble("balance") ?: 0.0
+            val userDocument = baseUserFirebase.getUserDocument()
+            val currentBalance = userDocument.getDouble("balance") ?: 0.0
 
             if (amountPrice > currentBalance) {
                 Snackbar.make(view, "Not Enough Balance", Snackbar.LENGTH_LONG).show()
@@ -43,7 +43,7 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
                     val userCoinAmount = amountPrice / crypto.quotes[0].price
                     val boughtCoin = crypto.toCryptoFirebase(userCoinAmount)
 
-                    val userCoins = getUserDocument()?.get("userCoin") as? List<HashMap<String, Any>>
+                    val userCoins = userDocument.get("userCoin") as? List<HashMap<String, Any>>
 
                     if (userCoins != null) {
 
@@ -52,19 +52,18 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
                             val existingAmount = existingCoin["amount"] as Double
                             val newAmount = existingAmount + boughtCoin.amount
 
-                            firestore.collection("users").document(getUserId())
+                            firestore.collection("users").document(baseUserFirebase.getUserId())
                                 .update("userCoin", FieldValue.arrayRemove(existingCoin))
                                 .await()
 
-                            firestore.collection("users").document(getUserId())
+                            firestore.collection("users").document(baseUserFirebase.getUserId())
                                 .update("userCoin", FieldValue.arrayUnion(boughtCoin.copy(amount = newAmount)))
                                 .await()
 
 
-
                             val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
 
-                            firestore.collection("users").document(getUserId())
+                            firestore.collection("users").document(baseUserFirebase.getUserId())
                                 .update("transactions", FieldValue.arrayUnion(transaction))
                                 .await()
 
@@ -72,13 +71,13 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
 
                         } else {
 
-                            firestore.collection("users").document(getUserId())
+                            firestore.collection("users").document(baseUserFirebase.getUserId())
                                 .update("userCoin", FieldValue.arrayUnion(boughtCoin))
                                 .await()
 
                             val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
 
-                            firestore.collection("users").document(getUserId())
+                            firestore.collection("users").document(baseUserFirebase.getUserId())
                                 .update("transactions", FieldValue.arrayUnion(transaction))
                                 .await()
 
@@ -88,7 +87,7 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
 
                     val newBalance = currentBalance - amountPrice
 
-                    firestore.collection("users").document(getUserId())
+                    firestore.collection("users").document(baseUserFirebase.getUserId())
                         .update("balance", newBalance)
                         .await()
 
@@ -103,7 +102,7 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
         viewModelScope.launch {
             val favCoin = FavouriteCryptosFirebase(crypto.name,crypto.id)
 
-            firestore.collection("users").document(getUserId())
+            firestore.collection("users").document(baseUserFirebase.getUserId())
                 .update("favourites", FieldValue.arrayUnion(favCoin))
                 .await()
 
@@ -117,7 +116,7 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
             try {
                 val favCoin = FavouriteCryptosFirebase(crypto.name, crypto.id)
 
-                firestore.collection("users").document(getUserId())
+                firestore.collection("users").document(baseUserFirebase.getUserId())
                     .update("favourites", FieldValue.arrayRemove(favCoin))
                     .await()
 
@@ -132,9 +131,9 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
 
     fun isFavourite(crypto: CryptoCurrency) {
         viewModelScope.launch {
-            val userId = getUserId()
+
             try {
-                val userDoc = firestore.collection("users").document(userId).get().await()
+                val userDoc =   baseUserFirebase.getUserDocument()
                 val favourites = userDoc.get("favourites") as? List<HashMap<String, Any>>
 
                 isFavourite.value = favourites?.any {
@@ -150,13 +149,4 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository): ViewMod
         }
     }
 
-
-
-    private fun getUserId(): String{
-        return auth.currentUser?.uid ?: ""
-    }
-
-    private suspend fun getUserDocument(): DocumentSnapshot? {
-        return firestore.collection("users").document(getUserId()).get().await()
-    }
 }
