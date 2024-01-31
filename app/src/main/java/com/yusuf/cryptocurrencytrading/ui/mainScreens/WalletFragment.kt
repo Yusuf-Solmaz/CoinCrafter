@@ -42,7 +42,7 @@ class WalletFragment : Fragment() {
 
 
         setupRecyclerView()
-        observeData()
+        getData()
 
         binding.deposit.setOnClickListener {
             showAddBalanceDialog()
@@ -82,6 +82,10 @@ class WalletFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        getData()
+    }
+
+    private fun getData(){
         viewModel.getAllCoins()
         viewModel.getUserCoins()
         viewModel.getBalance()
