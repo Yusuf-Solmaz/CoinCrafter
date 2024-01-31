@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-open class BaseUserFirebase @Inject constructor(private val auth: FirebaseAuth, private val firestore: FirebaseFirestore) {
+class BaseUserFirebase @Inject constructor(private val auth: FirebaseAuth, private val firestore: FirebaseFirestore) {
 
      fun getUserId(): String{
         return auth.currentUser?.uid ?: ""
