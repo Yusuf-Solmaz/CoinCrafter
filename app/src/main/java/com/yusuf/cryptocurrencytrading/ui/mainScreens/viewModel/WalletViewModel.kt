@@ -1,7 +1,7 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel
 
 
-import android.content.Context
+
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
@@ -18,6 +17,7 @@ import com.yusuf.cryptocurrencytrading.data.firebase.entity.TransactionsFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Coin
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.service.BaseUserFirebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -25,10 +25,7 @@ import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
-class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel() {
-
-    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+class WalletViewModel @Inject constructor(val repo: CoinRepository, var auth: FirebaseAuth, val firestore: FirebaseFirestore,private val baseUser:BaseUserFirebase): ViewModel() {
 
     var balance = MutableLiveData<Double>()
 
@@ -40,13 +37,11 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
     fun getUserCoins() {
         viewModelScope.launch {
             try {
-                if (getUserDocument() != null) {
-                    Log.i("userCoin", getUserDocument()!!.get("userCoin").toString())
+                Log.i("userCoin", baseUser.getUserCoins().toString())
 
-                    userCoinList.value = getUserDocument()!!.get("userCoin") as ArrayList<CryptoFirebase>?
+                userCoinList.value = baseUser.getUserCoinsAsCryptoFirebase()
 
-                    Log.i("userCoinValue", userCoinList.value.toString())
-                }
+                Log.i("userCoinValue", userCoinList.value.toString())
             } catch (e: Exception) {
                 println(e.localizedMessage)
             }
@@ -66,13 +61,10 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
         viewModelScope.launch {
             try {
 
-                if (getUserDocument() != null){
-                    Log.i("balance",getUserDocument()!!.getDouble("balance").toString())
+                Log.i("balance",baseUser.getUserBalance().toString())
 
-                    balance.value = getUserDocument()!!.getDouble("balance")
-                    Log.i("balanceValue",balance.value.toString())
-
-                }
+                balance.value = baseUser.getUserBalance()
+                Log.i("balanceValue",balance.value.toString())
 
             }
             catch (e:Exception){
@@ -85,20 +77,18 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
         viewModelScope.launch {
             try {
 
-                if (getUserDocument() != null){
-                    val currentBalance = getUserDocument()!!.getDouble("balance") ?: 0.0
-                    val newBalance = currentBalance + amountToAdd
+                val currentBalance = baseUser.getUserBalance()
+                val newBalance = currentBalance + amountToAdd
 
 
-                    firestore.collection("users").document(getUserId())
-                        .update("balance", newBalance)
-                        .await()
+                firestore.collection("users").document(baseUser.getUserId())
+                    .update("balance", newBalance)
+                    .await()
 
 
-                    balance.value = newBalance
+                balance.value = newBalance
 
-                    Snackbar.make(view,"Adding Balance Successful",Snackbar.LENGTH_LONG).show()
-                }
+                Snackbar.make(view,"Adding Balance Successful",Snackbar.LENGTH_LONG).show()
 
 
             } catch (e: Exception) {
@@ -111,8 +101,8 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
         viewModelScope.launch {
             try {
 
-                if (getUserDocument() != null){
-                    val currentBalance = getUserDocument()!!.getDouble("balance") ?: 0.0
+
+                    val currentBalance = baseUser.getUserBalance()
                     val newBalance = currentBalance - amount
 
                     if (currentBalance == 0.0 ){
@@ -123,7 +113,7 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
                         Toast.makeText(view.context,"You cannot withdraw more balance than the balance you have.",Toast.LENGTH_LONG).show()
                     }
                     else{
-                        firestore.collection("users").document(getUserId())
+                        firestore.collection("users").document(baseUser.getUserId())
                             .update("balance", newBalance)
                             .await()
 
@@ -132,7 +122,7 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
                         Snackbar.make(view,"Checking Balance Successful",Snackbar.LENGTH_LONG).show()
                     }
 
-                }
+
 
 
             } catch (e: Exception) {
@@ -144,65 +134,60 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
     fun sellCrypto(coinName: String, sellAmount: Double, view: View, coins: List<CryptoCurrency>) {
         viewModelScope.launch {
             try {
-                val userId = getUserId()
-                val userCoins = getUserDocument()?.get("userCoin") as? List<HashMap<String, Any>>
+                val userCoins = baseUser.getUserCoins()
 
-                if (userCoins != null) {
-                    val existingCoin = userCoins.find { it["name"] == coinName }
+                val existingCoin = userCoins.find { it["name"] == coinName }
 
-                    if (existingCoin != null) {
-                        var existingAmount = existingCoin["amount"] as Double
-                        var newAmount = existingAmount - sellAmount
+                if (existingCoin != null) {
+                    var existingAmount = existingCoin["amount"] as Double
+                    var newAmount = existingAmount - sellAmount
 
-                        val epsilon = 1e-50
+                    val epsilon = 1e-50
 
-                        if (newAmount > -epsilon && newAmount < epsilon) {
-                            newAmount = 0.0
+                    if (newAmount > -epsilon && newAmount < epsilon) {
+                        newAmount = 0.0
+                    }
+
+                    if (newAmount >= 0) {
+
+                        firestore.collection("users").document(baseUser.getUserId())
+                            .update("userCoin", FieldValue.arrayRemove(existingCoin))
+                            .await()
+
+                        if (newAmount > epsilon) {
+
+                            val updatedCoin = existingCoin.toMutableMap()
+                            updatedCoin["amount"] = newAmount
+                            firestore.collection("users").document(baseUser.getUserId())
+                                .update("userCoin", FieldValue.arrayUnion(updatedCoin))
+                                .await()
                         }
 
-                        if (newAmount >= 0) {
+                        getUserCoins()
 
-                            firestore.collection("users").document(userId)
-                                .update("userCoin", FieldValue.arrayRemove(existingCoin))
-                                .await()
+                        for (data in coins) {
+                            if (data.name != existingCoin["name"] as String) {
+                                continue
+                            } else {
+                                addToBalance(sellAmount * data.quotes[0].price, view)
+                                val amountPrice = sellAmount * data.quotes[0].price
 
-                            if (newAmount > epsilon) {
+                                val coinId = (existingCoin["id"]as Long).toInt()
 
-                                val updatedCoin = existingCoin.toMutableMap()
-                                updatedCoin["amount"] = newAmount
-                                firestore.collection("users").document(userId)
-                                    .update("userCoin", FieldValue.arrayUnion(updatedCoin))
+                                val transaction = TransactionsFirebase(amountPrice,sellAmount,status = "Sold",name = coinName, id = coinId,date = Calendar.getInstance().time.toString())
+
+                                firestore.collection("users").document(baseUser.getUserId())
+                                    .update("transactions", FieldValue.arrayUnion(transaction))
                                     .await()
                             }
-
-                            getUserCoins()
-
-                            for (data in coins) {
-                                if (data.name != existingCoin["name"] as String) {
-                                    continue
-                                } else {
-                                    addToBalance(sellAmount * data.quotes[0].price, view)
-                                    val amountPrice = sellAmount * data.quotes[0].price
-
-                                    val coinId = (existingCoin["id"]as Long).toInt()
-
-                                    val transaction = TransactionsFirebase(amountPrice,sellAmount,status = "Sold",name = coinName, id = coinId,date = Calendar.getInstance().time.toString())
-
-                                    firestore.collection("users").document(getUserId())
-                                        .update("transactions", FieldValue.arrayUnion(transaction))
-                                        .await()
-                                }
-                            }
-
-                            Snackbar.make(view, "Crypto sold successfully", Snackbar.LENGTH_LONG).show()
-                        } else {
-                            Snackbar.make(view, "The amount entered cannot be greater than the current amount.", Snackbar.LENGTH_LONG).show()
                         }
+
+                        Snackbar.make(view, "Crypto sold successfully", Snackbar.LENGTH_LONG).show()
                     } else {
-                        Snackbar.make(view, "Crypto not found in user's wallet", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(view, "The amount entered cannot be greater than the current amount.", Snackbar.LENGTH_LONG).show()
                     }
                 } else {
-                    Snackbar.make(view, "Crypto Not Found", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(view, "Crypto not found in user's wallet", Snackbar.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 Snackbar.make(view, "Selling Crypto Failed: ${e.localizedMessage}", Snackbar.LENGTH_LONG).show()
@@ -213,52 +198,47 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
     fun sellAllSelectedCrypto(coinName: String, view: View, coins: List<CryptoCurrency>){
         viewModelScope.launch {
             try {
-                val userId = getUserId()
-                val userCoins = getUserDocument()?.get("userCoin") as? List<HashMap<String, Any>>
+
+                val userCoins = baseUser.getUserCoins()
+
+                val existingCoin = userCoins.find { it["name"] == coinName }
+
+                if (existingCoin != null) {
+
+                    val existingAmount = existingCoin["amount"] as Double
+                    val coinName = existingCoin["name"] as String
 
 
-                if (userCoins != null) {
-                    val existingCoin = userCoins.find { it["name"] == coinName }
+                    firestore.collection("users").document(baseUser.getUserId())
+                        .update("userCoin", FieldValue.arrayRemove(existingCoin))
+                        .await()
 
-                    if (existingCoin != null) {
+                        getUserCoins()
 
-                        var existingAmount = existingCoin["amount"] as Double
-                        val coinName = existingCoin["name"] as String
+                        for (data in coins) {
+                            if (data.name != existingCoin["name"] as String) {
+                                continue
+                            } else {
+                                addToBalance(existingAmount * data.quotes[0].price, view)
 
+                                val amountPrice = existingAmount * data.quotes[0].price
 
-                        firestore.collection("users").document(userId)
-                            .update("userCoin", FieldValue.arrayRemove(existingCoin))
-                            .await()
+                                val coinId = (existingCoin["id"]as Long).toInt()
 
-                            getUserCoins()
+                                val transaction = TransactionsFirebase(amountPrice,existingAmount,status = "Sold",name = coinName, id = coinId,date = Calendar.getInstance().time.toString())
 
-                            for (data in coins) {
-                                if (data.name != existingCoin["name"] as String) {
-                                    continue
-                                } else {
-                                    addToBalance(existingAmount * data.quotes[0].price, view)
+                                firestore.collection("users").document(baseUser.getUserId())
+                                    .update("transactions", FieldValue.arrayUnion(transaction))
+                                    .await()
 
-                                    val amountPrice = existingAmount * data.quotes[0].price
-
-                                    val coinId = (existingCoin["id"]as Long).toInt()
-
-                                    val transaction = TransactionsFirebase(amountPrice,existingAmount,status = "Sold",name = coinName, id = coinId,date = Calendar.getInstance().time.toString())
-
-                                    firestore.collection("users").document(getUserId())
-                                        .update("transactions", FieldValue.arrayUnion(transaction))
-                                        .await()
-
-                                }
                             }
-
-                            Snackbar.make(view, "Crypto sold successfully", Snackbar.LENGTH_LONG).show()
-                        } else {
-                            Snackbar.make(view, "The amount entered cannot be greater than the current amount.", Snackbar.LENGTH_LONG).show()
                         }
+
+                        Snackbar.make(view, "Crypto sold successfully", Snackbar.LENGTH_LONG).show()
                     } else {
-                        Snackbar.make(view, "Crypto not found in user's wallet", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(view, "The amount entered cannot be greater than the current amount.", Snackbar.LENGTH_LONG).show()
                     }
-                }
+            }
              catch (e: Exception) {
                 Snackbar.make(view, "Selling Crypto Failed: ${e.localizedMessage}", Snackbar.LENGTH_LONG).show()
             }
@@ -266,16 +246,6 @@ class WalletViewModel @Inject constructor(val repo: CoinRepository): ViewModel()
 
     }
 
-
-
-
-    private fun getUserId(): String{
-            return auth.currentUser?.uid ?: ""
-        }
-
-        private suspend fun getUserDocument(): DocumentSnapshot? {
-            return firestore.collection("users").document(getUserId()).get().await()
-        }
 
 
 

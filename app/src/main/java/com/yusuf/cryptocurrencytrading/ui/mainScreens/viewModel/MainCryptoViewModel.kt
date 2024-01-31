@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Coin
 import com.yusuf.cryptocurrencytrading.data.retrofit.repository.CoinRepository
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.service.BaseUserFirebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,10 +16,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class MainCryptoViewModel @Inject constructor(val repo: CoinRepository): ViewModel() {
-
-    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+class MainCryptoViewModel @Inject constructor(val repo: CoinRepository,val auth: FirebaseAuth,val firestore: FirebaseFirestore,val baseUser: BaseUserFirebase): ViewModel() {
 
     var coins = MutableLiveData<Coin>()
 
@@ -26,12 +24,13 @@ class MainCryptoViewModel @Inject constructor(val repo: CoinRepository): ViewMod
     fun getUserName(onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                Log.i("userId",auth.currentUser?.uid.toString())
-                val userId = auth.currentUser?.uid ?: ""
-                val document = firestore.collection("users").document(userId).get().await()
+
+                Log.i("userId",baseUser.getUserId())
+
+                val document = baseUser.getUserDocument()
 
                 val username = if (document.exists()) {
-                    document.getString("username") ?: ""
+                    baseUser.getUserName()
                 } else {
                     ""
                 }

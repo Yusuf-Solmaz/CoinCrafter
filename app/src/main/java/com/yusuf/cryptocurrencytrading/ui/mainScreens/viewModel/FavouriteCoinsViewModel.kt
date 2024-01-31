@@ -22,8 +22,8 @@ class FavouriteCoinsViewModel @Inject constructor(val repo: CoinRepository, priv
     fun getFavouriteCryptos() {
         viewModelScope.launch {
             try {
-                val userDoc = baseUser.getUserDocument()
-                val favourites = userDoc.get("favourites") as? List<HashMap<String, Any>>?
+
+                val favourites = baseUser.getUserFavs()
 
                 favCoins.value = favourites?.map {
                     FavouriteCryptosFirebase(it["name"] as String, (it["id"] as Long).toInt())

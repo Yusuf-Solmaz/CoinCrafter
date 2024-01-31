@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.FavouriteCryptosFirebase
@@ -33,8 +31,8 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository,val baseU
 
     fun buyCrypto(amountPrice: Double, crypto: CryptoCurrency, view: View) {
         viewModelScope.launch {
-            val userDocument = baseUserFirebase.getUserDocument()
-            val currentBalance = userDocument.getDouble("balance") ?: 0.0
+
+            val currentBalance = baseUserFirebase.getUserBalance()
 
             if (amountPrice > currentBalance) {
                 Snackbar.make(view, "Not Enough Balance", Snackbar.LENGTH_LONG).show()
@@ -43,46 +41,43 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository,val baseU
                     val userCoinAmount = amountPrice / crypto.quotes[0].price
                     val boughtCoin = crypto.toCryptoFirebase(userCoinAmount)
 
-                    val userCoins = userDocument.get("userCoin") as? List<HashMap<String, Any>>
+                    val userCoins = baseUserFirebase.getUserCoins()
 
-                    if (userCoins != null) {
+                    val existingCoin = userCoins.find { it["name"] == boughtCoin.name }
+                    if (existingCoin != null) {
+                        val existingAmount = existingCoin["amount"] as Double
+                        val newAmount = existingAmount + boughtCoin.amount
 
-                        val existingCoin = userCoins.find { it["name"] == boughtCoin.name }
-                        if (existingCoin != null) {
-                            val existingAmount = existingCoin["amount"] as Double
-                            val newAmount = existingAmount + boughtCoin.amount
+                        firestore.collection("users").document(baseUserFirebase.getUserId())
+                            .update("userCoin", FieldValue.arrayRemove(existingCoin))
+                            .await()
 
-                            firestore.collection("users").document(baseUserFirebase.getUserId())
-                                .update("userCoin", FieldValue.arrayRemove(existingCoin))
-                                .await()
-
-                            firestore.collection("users").document(baseUserFirebase.getUserId())
-                                .update("userCoin", FieldValue.arrayUnion(boughtCoin.copy(amount = newAmount)))
-                                .await()
+                        firestore.collection("users").document(baseUserFirebase.getUserId())
+                            .update("userCoin", FieldValue.arrayUnion(boughtCoin.copy(amount = newAmount)))
+                            .await()
 
 
-                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
+                        val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
 
-                            firestore.collection("users").document(baseUserFirebase.getUserId())
-                                .update("transactions", FieldValue.arrayUnion(transaction))
-                                .await()
+                        firestore.collection("users").document(baseUserFirebase.getUserId())
+                            .update("transactions", FieldValue.arrayUnion(transaction))
+                            .await()
 
-                            Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
 
-                        } else {
+                    } else {
 
-                            firestore.collection("users").document(baseUserFirebase.getUserId())
-                                .update("userCoin", FieldValue.arrayUnion(boughtCoin))
-                                .await()
+                        firestore.collection("users").document(baseUserFirebase.getUserId())
+                            .update("userCoin", FieldValue.arrayUnion(boughtCoin))
+                            .await()
 
-                            val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
+                        val transaction = TransactionsFirebase(amountPrice,boughtCoin.amount,status = "Purchased",name = crypto.name, id = crypto.id,date = Calendar.getInstance().time.toString())
 
-                            firestore.collection("users").document(baseUserFirebase.getUserId())
-                                .update("transactions", FieldValue.arrayUnion(transaction))
-                                .await()
+                        firestore.collection("users").document(baseUserFirebase.getUserId())
+                            .update("transactions", FieldValue.arrayUnion(transaction))
+                            .await()
 
-                            Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
-                        }
+                        Snackbar.make(view, "${amountPrice}$ worth of ${crypto.name} was purchased.", Snackbar.LENGTH_LONG).show()
                     }
 
                     val newBalance = currentBalance - amountPrice
@@ -133,13 +128,11 @@ class CoinDetailViewModel @Inject constructor(val repo: CoinRepository,val baseU
         viewModelScope.launch {
 
             try {
-                val userDoc =   baseUserFirebase.getUserDocument()
-                val favourites = userDoc.get("favourites") as? List<HashMap<String, Any>>
+                val favourites = baseUserFirebase.getUserFavs()
 
                 isFavourite.value = favourites?.any {
-                    val isFavorite = it["id"].toString() == crypto.id.toString()
 
-                   return@any isFavorite
+                    return@any it["id"].toString() == crypto.id.toString()
                 } ?: false
 
             } catch (e: Exception) {
