@@ -15,6 +15,8 @@ import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.AllCoinsAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.MarketAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.AllCoinsViewModel
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
+import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -49,7 +51,7 @@ class AllCoinsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        observeCoins()
+        observeData()
         setupSearchView()
     }
 
@@ -96,7 +98,21 @@ class AllCoinsFragment : Fragment() {
         binding.marketRecyclerView.layoutManager = layoutManager
     }
 
-    fun observeCoins() {
+    fun observeData() {
+
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                binding.searchView.gone()
+                binding.marketRecyclerView.gone()
+                binding.progressBarAllCoins.visible()
+            }
+            else{
+                binding.progressBarAllCoins.gone()
+                binding.marketRecyclerView.visible()
+                binding.searchView.visible()
+            }
+        }
+
         viewModel.coins.observe(viewLifecycleOwner) { coins ->
             coins?.let {
                 if (list.isEmpty()) {

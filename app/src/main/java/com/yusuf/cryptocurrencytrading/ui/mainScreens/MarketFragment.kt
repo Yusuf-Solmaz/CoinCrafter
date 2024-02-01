@@ -38,12 +38,25 @@ class MarketFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MarketViewModel::class.java)
         viewModel.getAllCoins()
+        observeData()
 
         return binding.root
     }
 
 
 
+    private fun observeData(){
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                binding.contentViewPager.gone()
+                binding.progressBarMarket.visible()
+            }
+            else{
+                binding.contentViewPager.visible()
+                binding.progressBarMarket.gone()
+            }
+        }
+    }
 
 
     private fun setTabLayout() {

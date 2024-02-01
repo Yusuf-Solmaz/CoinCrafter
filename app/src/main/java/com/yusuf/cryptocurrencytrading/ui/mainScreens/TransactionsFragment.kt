@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yusuf.cryptocurrencytrading.databinding.FragmentTransactionsBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.TransactionsAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.TransactionsViewModel
+import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +40,18 @@ class TransactionsFragment : Fragment() {
     }
 
     private fun observeData(){
+
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                binding.progressBarTransactions.visible()
+                binding.transactionsRecyclerView.gone()
+            }
+            else{
+                binding.progressBarTransactions.gone()
+                binding.transactionsRecyclerView.visible()
+            }
+        }
+
         viewModel.transactions.observe(viewLifecycleOwner){
             transactions->
             transactions?.let {

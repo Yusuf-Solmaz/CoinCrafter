@@ -32,13 +32,17 @@ class WalletViewModel @Inject constructor(
     var balance = MutableLiveData<Double>()
     var coins = MutableLiveData<Coin>()
     var userCoinList = MutableLiveData<ArrayList<CryptoFirebase>>()
+    var loadingCoins = MutableLiveData<Boolean>()
+    var loadingBalance = MutableLiveData<Boolean>()
 
     fun getUserCoins() {
+        loadingCoins.value = true
         viewModelScope.launch {
             try {
                 Log.i("userCoin", baseUser.getUserCoins().toString())
                 userCoinList.value = baseUser.getUserCoinsAsCryptoFirebase()
                 Log.i("userCoinValue", userCoinList.value.toString())
+                loadingCoins.value = false
             } catch (e: Exception) {
                 handleException(e)
             }
@@ -52,11 +56,13 @@ class WalletViewModel @Inject constructor(
     }
 
     fun getBalance() {
+        loadingBalance.value = true
         viewModelScope.launch {
             try {
                 Log.i("balance", baseUser.getUserBalance().toString())
                 balance.value = baseUser.getUserBalance()
                 Log.i("balanceValue", balance.value.toString())
+                loadingBalance.value = false
             } catch (e: Exception) {
                 handleException(e)
             }

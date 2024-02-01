@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MainCryptoViewModel @Inject constructor(val repo: CoinRepository,val auth: FirebaseAuth,val firestore: FirebaseFirestore,val baseUser: BaseUserFirebase): ViewModel() {
 
     var coins = MutableLiveData<Coin>()
-
+    var loading = MutableLiveData<Boolean>()
 
     fun getUserName(onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -50,9 +50,11 @@ class MainCryptoViewModel @Inject constructor(val repo: CoinRepository,val auth:
     }
 
     fun getAllCoins(){
+        loading.value = true
         viewModelScope.launch {
             Log.i("coins", repo.getAllCoins().toString())
             coins.value = repo.getAllCoins()
+            loading.value = false
         }
 
     }

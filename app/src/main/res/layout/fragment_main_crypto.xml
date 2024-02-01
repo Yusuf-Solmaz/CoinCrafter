@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
         android:paddingLeft="10dp"
-        android:text="TextView"
+        android:text=""
         android:textColor="@color/onBoardingButton"
         android:textSize="23sp"
         app:layout_constraintStart_toEndOf="@+id/welcome"
@@ -104,5 +104,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarMainCrypto"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="108dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

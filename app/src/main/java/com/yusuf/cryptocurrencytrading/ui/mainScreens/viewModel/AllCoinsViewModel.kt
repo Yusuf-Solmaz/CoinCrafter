@@ -16,11 +16,14 @@ class AllCoinsViewModel @Inject constructor(val repo: CoinRepository): ViewModel
 
 
     var coins = MutableLiveData<Coin>()
+    var loading = MutableLiveData<Boolean>()
 
     fun getAllCoins(){
+        loading.value = true
         viewModelScope.launch {
             Log.i("coins", repo.getAllCoins().toString())
             coins.value = repo.getAllCoins()
+            loading.value = false
         }
 
     }

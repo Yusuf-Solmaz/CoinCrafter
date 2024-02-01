@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yusuf.cryptocurrencytrading.MainActivity
+import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.databinding.FragmentSignInBinding
 import com.yusuf.cryptocurrencytrading.ui.registration.viewModel.RegistrationViewModel
+import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +32,7 @@ class SignIn : Fragment() {
         viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
 
         checkUserIfNotNull()
+        observeData()
 
         return binding.root
     }
@@ -36,6 +40,23 @@ class SignIn : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+    }
+
+    private fun observeData(){
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it!=null){
+                if (it==true){
+                    binding.progressBar2.visible()
+                    binding.buttonSignIn.isClickable=false
+                    binding.buttonSignIn.setBackgroundResource(R.drawable.button_loading_color)
+                }
+                else{
+                    binding.progressBar2.gone()
+                    binding.buttonSignIn.isClickable= true
+                }
+            }
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -14,6 +14,7 @@ import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.WalletUserCryptoAd
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.AddBalanceDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.CheckBalanceDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.WalletViewModel
+import com.yusuf.cryptocurrencytrading.utils.gone
 import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,6 +61,35 @@ class WalletFragment : Fragment() {
     }
 
     fun observeData(){
+
+        viewModel.loadingCoins.observe(viewLifecycleOwner){
+            if (it){
+                binding.textView6.gone()
+                binding.textView8.gone()
+                binding.textView10.gone()
+                binding.recyclerViewMyCrypto.gone()
+                binding.progressBarUserCoins.visible()
+            }
+            else{
+                binding.textView6.visible()
+                binding.textView8.visible()
+                binding.textView10.visible()
+                binding.recyclerViewMyCrypto.visible()
+                binding.progressBarUserCoins.gone()
+            }
+        }
+
+        viewModel.loadingBalance.observe(viewLifecycleOwner){
+            if (it){
+                binding.totalBalance.gone()
+                binding.progressBarUserBalance.visible()
+            }
+            else{
+                binding.totalBalance.visible()
+                binding.progressBarUserBalance.gone()
+            }
+        }
+
         viewModel.balance.observe(viewLifecycleOwner) {
             Log.i("balanceData",it.toString())
             binding.totalBalance.text = "${String.format("%.02f", it)}$"

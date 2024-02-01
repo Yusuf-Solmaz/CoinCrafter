@@ -27,6 +27,8 @@ import com.yusuf.cryptocurrencytrading.databinding.FragmentMainCryptoBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.CoinAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.ImageAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MainCryptoViewModel
+import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 import java.util.Timer
@@ -77,7 +79,7 @@ class MainCryptoFragment : Fragment() {
 
         getData()
         setupRecyclerView()
-        observeCoins()
+        observeData()
 
 
 
@@ -145,7 +147,19 @@ class MainCryptoFragment : Fragment() {
         viewModel.getAllCoins()
     }
 
-    fun observeCoins(){
+    fun observeData(){
+
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                binding.recyclerView.gone()
+                binding.progressBarMainCrypto.visible()
+            }
+            else{
+                binding.progressBarMainCrypto.gone()
+                binding.recyclerView.visible()
+            }
+        }
+
         viewModel.coins.observe(viewLifecycleOwner){
             coins->
             coins?.let {
@@ -162,19 +176,3 @@ class MainCryptoFragment : Fragment() {
     }
 
 }
-
-
-
-//binding.button2.setOnClickListener {
-
-/*val list = arrayListOf("as","assa","sasa","asas")
-val userRef = firestore.collection("users").document(auth.currentUser!!.uid)
-
-userRef
-    .update("fullName", list)
-    .addOnSuccessListener {
-        Toast.makeText(requireContext(),"Kaydedildi",Toast.LENGTH_LONG).show()
-    }
-    .addOnFailureListener {
-        Toast.makeText(requireContext(),it.localizedMessage ?: "An unknown error occurred.",Toast.LENGTH_LONG).show()
-    }*/

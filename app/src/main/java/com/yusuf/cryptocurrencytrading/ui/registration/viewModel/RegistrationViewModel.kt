@@ -28,9 +28,11 @@ class RegistrationViewModel : ViewModel() {
     }
 
     fun signIn(email: String, password: String,context: Context,onSuccess: () -> Unit, onFailure: (String) -> Unit){
+        loading.value = true
         if (Utils.emailAndPasswordControl(email,password,context)){
            auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
                onSuccess()
+               loading.value = false
            }.addOnFailureListener {
                onFailure(it.localizedMessage ?: "An unknown error occurred.")
            }

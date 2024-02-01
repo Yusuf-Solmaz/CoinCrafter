@@ -19,8 +19,10 @@ import javax.inject.Inject
 class TransactionsViewModel @Inject constructor(val repo: CoinRepository,val auth: FirebaseAuth,val firestore: FirebaseFirestore,val baseUser:BaseUserFirebase): ViewModel() {
 
     var transactions = MutableLiveData<List<TransactionsFirebase>>()
+    var loading = MutableLiveData<Boolean>()
 
     fun getAllTransactions() {
+        loading.value = true
         viewModelScope.launch {
             try {
 
@@ -55,7 +57,7 @@ class TransactionsViewModel @Inject constructor(val repo: CoinRepository,val aut
                     }
 
                     transactions.postValue(transactionDataList)
-
+                    loading.value = false
                     Log.i("transactionsData", transactions.toString())
                 } else {
                     Log.e("TransactionsViewModel", "User not found or transactions field missing.")
