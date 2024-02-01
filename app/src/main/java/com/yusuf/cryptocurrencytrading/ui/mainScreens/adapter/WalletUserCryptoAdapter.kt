@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.firebase.entity.CryptoFirebase
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.UserCryptoRowBinding
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.WalletFragmentDirections
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.WalletViewModel
 
 class WalletUserCryptoAdapter(val viewModel: WalletViewModel,val context: Context,var userCoins: List<CryptoFirebase>,var coins:List<CryptoCurrency>): RecyclerView.Adapter<WalletUserCryptoAdapter.UserCryptoHolder>() {
@@ -112,6 +114,29 @@ class WalletUserCryptoAdapter(val viewModel: WalletViewModel,val context: Contex
                 }
             })
             sellDialog.show()
+        }
+
+        holder.binding.cardView.setOnClickListener {
+            var coinTransferable: CryptoCurrency? = null
+
+            for (data in coins){
+                if (coin.name != data.name){
+                    continue
+                }
+                else{
+                    coinTransferable = data
+                }
+            }
+            if (coinTransferable !=null) {
+                holder.binding.root.findNavController().navigate(
+                    WalletFragmentDirections.actionWalletFragmentToCoinDetailFragment(
+                        coinTransferable
+                    )
+                )
+            }
+            else{
+                Log.i("coinTransferable", coinTransferable.toString())
+            }
         }
     }
 
