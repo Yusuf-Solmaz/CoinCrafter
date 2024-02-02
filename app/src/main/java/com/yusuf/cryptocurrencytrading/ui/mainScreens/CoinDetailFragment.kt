@@ -12,10 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentCoinDetailBinding
+import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.TagsAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.customDialog.BuyCryptoDialog
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.CoinDetailViewModel
 
@@ -27,6 +29,7 @@ class CoinDetailFragment : Fragment() {
     private lateinit var binding : FragmentCoinDetailBinding
     private lateinit var viewModel: CoinDetailViewModel
     private lateinit var coin : CryptoCurrency
+    private lateinit var adapter: TagsAdapter
 
     private val bundle : CoinDetailFragmentArgs by navArgs()
 
@@ -48,6 +51,10 @@ class CoinDetailFragment : Fragment() {
         coin = bundle.coin!!
         Log.i("coinDetailCoin",coin.name)
 
+        adapter = TagsAdapter(requireContext(),coin)
+        binding.tagsRecyclerView.adapter=adapter
+        setupRecyclerView()
+
         loadWebViewChart(coin)
         setButtonOnClick(coin)
         handleViews(coin)
@@ -58,6 +65,12 @@ class CoinDetailFragment : Fragment() {
         }
 
     }
+
+    private fun setupRecyclerView() {
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.tagsRecyclerView.layoutManager = layoutManager
+    }
+
     private fun setButtonOnClick(coin: CryptoCurrency) {
         val oneMonth = binding.button1M
         val oneWeek = binding.button1W
