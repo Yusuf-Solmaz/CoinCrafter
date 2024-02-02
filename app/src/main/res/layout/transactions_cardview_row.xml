@@ -33,7 +33,7 @@
             android:layout_height="match_parent">
 
             <TextView
-
+                android:textColor="@color/white"
                 android:id="@+id/coinName"
                 android:layout_width="89dp"
                 android:layout_height="22dp"
@@ -57,11 +57,11 @@
                 app:srcCompat="@drawable/baseline_currency_bitcoin_24" />
 
             <TextView
-                android:gravity="left"
                 android:id="@+id/transactionStatus"
-                android:layout_width="wrap_content"
+                android:layout_width="81dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:gravity="center"
                 android:text="TextView"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -73,8 +73,9 @@
                 android:id="@+id/transactionAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
+                android:layout_marginStart="18dp"
                 android:text="TextView"
+                android:textColor="#D1CFCF"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/coinName"

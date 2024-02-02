@@ -6,13 +6,24 @@
     android:padding="16dp"
     android:background="@color/bottom_navbar">
 
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter the Amount You Want to Withdraw" />
+
     <EditText
         android:textColor="@color/white"
         android:id="@+id/checkEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Amount"
-        android:textColorHint="@color/white"
+        android:textSize="15sp"
+        android:textColorHint="@color/grey"
         android:inputType="numberDecimal"
         android:layout_marginBottom="16dp"/>
 
@@ -21,7 +32,7 @@
         android:id="@+id/checkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Check Balance"
+        android:text="Wıthdraw  Balance"
         android:onClick="onCheckButtonClick"/>
 
 </LinearLayout>

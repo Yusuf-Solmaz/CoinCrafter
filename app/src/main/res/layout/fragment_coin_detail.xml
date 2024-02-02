@@ -13,8 +13,9 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:gravity="center"
             android:id="@+id/coinName"
-            android:layout_width="101dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="BTC"
@@ -39,13 +40,13 @@
 
         <CheckBox
             android:id="@+id/favImageButton"
-            app:buttonTint="@null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="52dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:button="@drawable/selector_wishlist_item"
+            app:buttonTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.776"
             app:layout_constraintStart_toEndOf="@+id/coinName"
@@ -53,49 +54,53 @@
 
         <WebView
             android:id="@+id/coinWebView"
-            android:layout_width="408dp"
+            android:layout_width="380dp"
             android:layout_height="217dp"
-            android:layout_marginTop="212dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coinName"
+            app:layout_constraintTop_toBottomOf="@+id/coinPrice"
             tools:ignore="WebViewLayout" />
 
         <TextView
             android:id="@+id/coinPrice"
             android:layout_width="109dp"
             android:layout_height="27dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="62dp"
+            android:gravity="center"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.447"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/coinName" />
 
         <ImageView
             android:id="@+id/coinImageView"
-            android:layout_width="48dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="100dp"
+            android:layout_width="77dp"
+            android:layout_height="62dp"
+            android:layout_marginBottom="85dp"
             android:src="@drawable/baseline_currency_bitcoin_24"
-            app:layout_constraintEnd_toStartOf="@+id/coinPrice"
-            app:layout_constraintHorizontal_bias="0.689"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backImageButton" />
+            app:layout_constraintBottom_toTopOf="@+id/tagsRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.14"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/coinRatio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="80dp"
+            android:gravity="center"
             android:text="TextView"
             android:textColor="@color/white"
             android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/tagsRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.385"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/coinPrice" />
 
@@ -103,7 +108,9 @@
             android:id="@+id/linearLayout"
             android:layout_width="399dp"
             android:layout_height="60dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/coin_list_color"
             android:gravity="center"
             android:orientation="horizontal"
@@ -197,14 +204,39 @@
             android:id="@+id/buy"
             android:layout_width="270dp"
             android:layout_height="53dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/top_gainers_bg"
             android:text="BUY"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tagsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/coinWebView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="68dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Tags:"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/tagsRecyclerView"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
