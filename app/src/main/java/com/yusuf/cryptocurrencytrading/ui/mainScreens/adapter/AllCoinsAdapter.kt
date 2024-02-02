@@ -38,7 +38,7 @@ class AllCoinsAdapter (var context: Context, var coinList: List<CryptoCurrency>)
 
         holder.binding.coinName.text = coin.name
 
-        holder.binding.coinValue.text = coin.quotes[0].price.toString()
+        holder.binding.coinValue.text ="${String.format("%.2f",coin.quotes[0].price)}$"
 
         Glide.with(context).load(
             "https://s2.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png"
