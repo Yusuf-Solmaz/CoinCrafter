@@ -16,6 +16,7 @@ import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.MarketAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.AllCoinsViewModel
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
 import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.invisible
 import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -98,7 +99,7 @@ class AllCoinsFragment : Fragment() {
         binding.marketRecyclerView.layoutManager = layoutManager
     }
 
-    fun observeData() {
+    private fun observeData() {
 
         viewModel.loading.observe(viewLifecycleOwner){
             if (it){

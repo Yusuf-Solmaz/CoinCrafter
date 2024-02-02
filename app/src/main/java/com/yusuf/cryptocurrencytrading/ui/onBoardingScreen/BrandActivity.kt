@@ -12,10 +12,12 @@ import com.yusuf.cryptocurrencytrading.MainActivity
 import com.yusuf.cryptocurrencytrading.R
 
 class BrandActivity : AppCompatActivity() {
-    //    here your splash screen api and other operation perform
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brand)
+
+
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

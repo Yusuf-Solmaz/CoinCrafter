@@ -27,7 +27,7 @@ class TransactionsFragment : Fragment() {
     ): View {
         binding = FragmentTransactionsBinding.inflate(inflater,container,false)
         viewModel = ViewModelProvider(this).get(TransactionsViewModel::class.java)
-        viewModel.getAllTransactions()
+
 
         return binding.root
     }
@@ -37,6 +37,7 @@ class TransactionsFragment : Fragment() {
 
         setupRecyclerView()
         observeData()
+        viewModel.getAllTransactions()
     }
 
     private fun observeData(){

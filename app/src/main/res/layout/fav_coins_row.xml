@@ -27,23 +27,38 @@
                 android:id="@+id/imageViewCoinImage"
                 android:layout_width="49dp"
                 android:layout_height="36dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.379"
+                android:layout_marginStart="49dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="49dp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewCoinName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_currency_bitcoin_24" />
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/textViewCoinName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:text="TextView"
+                android:layout_width="150dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViewCoinImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/coinRatio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewCoinName"
                 app:layout_constraintTop_toTopOf="parent" />
 
 

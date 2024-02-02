@@ -55,6 +55,8 @@ class WalletFragment : Fragment() {
 
     }
 
+
+
     private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewMyCrypto.layoutManager = layoutManager
@@ -64,16 +66,10 @@ class WalletFragment : Fragment() {
 
         viewModel.loadingCoins.observe(viewLifecycleOwner){
             if (it){
-                binding.textView6.gone()
-                binding.textView8.gone()
-                binding.textView10.gone()
                 binding.recyclerViewMyCrypto.gone()
                 binding.progressBarUserCoins.visible()
             }
             else{
-                binding.textView6.visible()
-                binding.textView8.visible()
-                binding.textView10.visible()
                 binding.recyclerViewMyCrypto.visible()
                 binding.progressBarUserCoins.gone()
             }
@@ -97,8 +93,10 @@ class WalletFragment : Fragment() {
 
         viewModel.coins.observe(viewLifecycleOwner){
             currentCoin ->
+
             Log.i("currentCoinList",currentCoin.data.cryptoCurrencyList[0].toString())
             currentCoinList = currentCoin.data.cryptoCurrencyList
+
         }
 
         viewModel.userCoinList.observe(viewLifecycleOwner){
@@ -106,6 +104,20 @@ class WalletFragment : Fragment() {
             Log.i("userCoinListWalletFragment",it.toString())
             adapter = WalletUserCryptoAdapter(viewModel,requireContext(),it,currentCoinList)
             binding.recyclerViewMyCrypto.adapter = adapter
+
+
+
+            if (it.isEmpty()){
+                binding.textView6.gone()
+                binding.textView8.gone()
+                binding.textView10.gone()
+                Log.i("currentCoinListNull",currentCoinList.toString())
+            }
+            else{
+                binding.textView6.visible()
+                binding.textView8.visible()
+                binding.textView10.visible()
+            }
         }
     }
 
@@ -116,10 +128,10 @@ class WalletFragment : Fragment() {
     }
 
     private fun getData(){
+        observeData()
         viewModel.getAllCoins()
         viewModel.getUserCoins()
         viewModel.getBalance()
-        observeData()
     }
 
     private fun showAddBalanceDialog() {

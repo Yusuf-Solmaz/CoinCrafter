@@ -14,7 +14,7 @@
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter the Amount You Want to Sell" />
+        android:text="@string/dialogSellCryptoInfoInfo" />
 
 
     <EditText
@@ -22,7 +22,7 @@
         android:id="@+id/sellEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Crypto Amount"
+        android:hint="@string/dialogCryptoSellHint"
         android:textSize="15sp"
         android:textColorHint="@color/grey"
         android:inputType="numberDecimal"
@@ -33,7 +33,7 @@
         android:id="@+id/sellButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sell"
+        android:text="@string/sellCoinButtonText"
         android:onClick="onCheckButtonClick"/>
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:text="Or"
+        android:text="@string/or"
         android:layout_gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -49,7 +49,7 @@
         android:id="@+id/sellAllButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sell All"
+        android:text="@string/sellAllCoinButtonText"
         android:onClick="onCheckButtonClick"/>
 
 </LinearLayout>

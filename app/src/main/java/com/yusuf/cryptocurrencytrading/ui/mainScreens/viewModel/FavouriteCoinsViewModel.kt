@@ -17,9 +17,11 @@ class FavouriteCoinsViewModel @Inject constructor(val repo: CoinRepository, priv
 
     val favCoins = MutableLiveData<List<FavouriteCryptosFirebase>>()
     var coins = MutableLiveData<Coin>()
+    var loading = MutableLiveData<Boolean>()
 
 
     fun getFavouriteCryptos() {
+        loading.value=true
         viewModelScope.launch {
             try {
 
@@ -28,6 +30,7 @@ class FavouriteCoinsViewModel @Inject constructor(val repo: CoinRepository, priv
                 favCoins.value = favourites?.map {
                     FavouriteCryptosFirebase(it["name"] as String, (it["id"] as Long).toInt())
                 } ?: emptyList()
+                loading.value=false
             } catch (e: Exception) {
                 Log.e("FavouriteCoinsViewModel", "Error getting favourite cryptos: ${e.localizedMessage}")
                 favCoins.value = emptyList()

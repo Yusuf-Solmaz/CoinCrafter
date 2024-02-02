@@ -12,6 +12,8 @@ import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentFavouriteCoinsBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.FavouriteCoinsAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.FavouriteCoinsViewModel
+import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -46,6 +48,18 @@ class FavouriteCoinsFragment : Fragment() {
 
 
     private fun observedata() {
+
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                binding.favRecyclerView.gone()
+                binding.progressBarFavorites.visible()
+            }
+            else{
+                binding.favRecyclerView.visible()
+                binding.progressBarFavorites.gone()
+            }
+        }
+
         viewModel.coins.observe(viewLifecycleOwner) { currentCoin ->
             Log.i("currentCoinListFav", currentCoin.data.cryptoCurrencyList[0].toString())
             currentCoinList = currentCoin.data.cryptoCurrencyList
@@ -65,9 +79,9 @@ class FavouriteCoinsFragment : Fragment() {
     }
 
     private fun getFavData(){
+        observedata()
         viewModel.getAllCoins()
         viewModel.getFavouriteCryptos()
-        observedata()
     }
 
     override fun onResume() {

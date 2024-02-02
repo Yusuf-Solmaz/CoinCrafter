@@ -37,8 +37,9 @@ class MarketFragment : Fragment() {
         setTabLayout()
 
         viewModel = ViewModelProvider(this).get(MarketViewModel::class.java)
-        viewModel.getAllCoins()
         observeData()
+        viewModel.getAllCoins()
+
 
         return binding.root
     }
@@ -85,5 +86,11 @@ class MarketFragment : Fragment() {
             }
             tab.text = title
         }.attach()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeData()
+        viewModel.getAllCoins()
     }
 }

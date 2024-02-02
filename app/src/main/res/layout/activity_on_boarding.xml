@@ -36,7 +36,7 @@
         android:layout_margin="25dp"
         android:backgroundTint="@color/onBoardingButton"
         android:paddingBottom="10dp"
-        android:text="Skip"
+        android:text="@string/skipButtonText"
         android:textColor="@color/onBoardingButtonText"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

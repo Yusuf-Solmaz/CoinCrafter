@@ -14,14 +14,14 @@
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter the Amount You Want to Buy" />
+        android:text="@string/dialogBuyInfo" />
 
     <EditText
         android:textColor="@color/white"
         android:id="@+id/addEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Amount ($)"
+        android:hint="@string/dialogHint"
         android:textSize="15sp"
         android:textColorHint="@color/grey"
         android:inputType="numberDecimal"
@@ -32,7 +32,7 @@
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Buy"
+        android:text="@string/buyCoinButtonText"
         android:onClick="onAddButtonClick"/>
 
 </LinearLayout>

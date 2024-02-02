@@ -28,6 +28,7 @@ import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.CoinAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.ImageAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MainCryptoViewModel
 import com.yusuf.cryptocurrencytrading.utils.gone
+import com.yusuf.cryptocurrencytrading.utils.invisible
 import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,11 +76,13 @@ class MainCryptoFragment : Fragment() {
         binding.viewPager2Main.adapter = imageAdapter
         viewPager2Setup()
 
+
+        observeData()
         getUserName()
 
         getData()
         setupRecyclerView()
-        observeData()
+
 
 
 
@@ -151,7 +154,7 @@ class MainCryptoFragment : Fragment() {
 
         viewModel.loading.observe(viewLifecycleOwner){
             if (it){
-                binding.recyclerView.gone()
+                binding.recyclerView.invisible()
                 binding.progressBarMainCrypto.visible()
             }
             else{
@@ -172,7 +175,10 @@ class MainCryptoFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllCoins()
+        observeData()
+        getUserName()
+
+        getData()
     }
 
 }

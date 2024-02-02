@@ -18,7 +18,6 @@ class OnBoardingFragment(private val page: Page) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_on_boarding, container, false)
         view.setBackgroundColor(Color.parseColor(page.color))
         val titleTxt = view.findViewById<TextView>(R.id.titleTxt)

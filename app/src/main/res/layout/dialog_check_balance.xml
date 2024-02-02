@@ -21,7 +21,7 @@
         android:id="@+id/checkEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Amount"
+        android:hint="@string/dialogHint"
         android:textSize="15sp"
         android:textColorHint="@color/grey"
         android:inputType="numberDecimal"
@@ -32,7 +32,7 @@
         android:id="@+id/checkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wıthdraw  Balance"
+        android:text="@string/withdrawBalanceButtonText"
         android:onClick="onCheckButtonClick"/>
 
 </LinearLayout>

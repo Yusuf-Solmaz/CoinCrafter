@@ -14,14 +14,14 @@
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter the Amount You Want to Add" />
+        android:text="@string/dialogAddBalanceInfo" />
 
     <EditText
         android:textColor="@color/white"
         android:id="@+id/addEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Amount ($)"
+        android:hint="@string/dialogHint"
         android:textSize="15sp"
         android:textColorHint="@color/grey"
         android:inputType="numberDecimal"
@@ -32,7 +32,7 @@
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Balance"
+        android:text="@string/addBalanceButtonText"
         android:onClick="onAddButtonClick"/>
 
 </LinearLayout>

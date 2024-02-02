@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,7 +41,26 @@ class FavouriteCoinsAdapter(val context: Context,var favCoins: List<FavouriteCry
         ).placeholder(R.drawable.baseline_currency_bitcoin_24).into(holder.binding.imageViewCoinImage)
 
 
-        holder.binding.cardView.setOnClickListener {
+        for (data in coins){
+            if (data.name != favCoinHashMap.name){
+                continue
+            }
+            else{
+                holder.binding.cardView.setOnClickListener {
+                    holder.binding.root.findNavController().navigate(FavouriteCoinsFragmentDirections.actionFavouriteCoinsFragmentToCoinDetailFragment(data))
+                }
+
+                if (0 > data.quotes[0].percentChange24h){
+                    holder.binding.coinRatio.setTextColor(ContextCompat.getColor(context, R.color.red))
+                    holder.binding.coinRatio.text = "${String.format("%.02f",data.quotes[0].percentChange24h)}%"
+                } else {
+                    holder.binding.coinRatio.setTextColor(ContextCompat.getColor(context, R.color.green))
+                    holder.binding.coinRatio.text = "${String.format("%.02f",data.quotes[0].percentChange24h)}%"
+                }
+            }
+        }
+
+        /*holder.binding.cardView.setOnClickListener {
             for (data in coins){
                 if (data.name != favCoinHashMap.name){
                     continue
@@ -49,7 +69,10 @@ class FavouriteCoinsAdapter(val context: Context,var favCoins: List<FavouriteCry
                     holder.binding.root.findNavController().navigate(FavouriteCoinsFragmentDirections.actionFavouriteCoinsFragmentToCoinDetailFragment(data))
                 }
             }
-        }
+        }*/
+
+
+
 
     }
 

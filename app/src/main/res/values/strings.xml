@@ -1,5 +1,49 @@
 <resources>
-    <string name="app_name">Cryptocurrency Trading</string>
+    <string name="app_name">Coin Crafter</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragmentFavoritesTitle">Favorites</string>
+    <string name="skipButtonText">Skip</string>
+    <string name="dialogAddBalanceInfo">Enter the Amount You Want to Add</string>
+    <string name="dialogHint">Amount ($)</string>
+    <string name="addBalanceButtonText">Add Balance</string>
+    <string name="dialogBuyInfo">Enter the Amount You Want to Buy</string>
+    <string name="buyCoinButtonText">Buy</string>
+    <string name="dialogWithdrawBalanceInfo">Enter the Amount You Want to Withdraw</string>
+    <string name="withdrawBalanceButtonText">Withdraw Balance</string>
+    <string name="dialogSellCryptoInfoInfo">Enter the Amount You Want to Sell</string>
+    <string name="dialogCryptoSellHint">Crypto Amount</string>
+    <string name="sellCoinButtonText">Sell</string>
+    <string name="or">Or</string>
+    <string name="sellAllCoinButtonText">Sell All</string>
+    <string name="allCoinsInfo">All Coins</string>
+    <string name="_1min">1 MIN</string>
+    <string name="_15min">15 MIN</string>
+    <string name="_1hour">1 HOUR</string>
+    <string name="_4hour">4 HOUR</string>
+    <string name="_1day">1 DAY</string>
+    <string name="_1week">1 WEEK</string>
+    <string name="tagsTitle">Tags:</string>
+    <string name="welcome">Welcome</string>
+    <string name="registerTitle">Register Now</string>
+    <string name="coins">Coins</string>
+    <string name="viewAllInfo">View All</string>
+    <string name="fragmentMarketTitle">Market</string>
+    <string name="fragmentTransactionsTitle">Transactions</string>
+    <string name="fragmentWalletTitle">My Wallet</string>
+    <string name="dontHaveAnAccountInfo">Don\'t you have an account?</string>
+    <string name="doYouHaveAnAccountInfo">Do you have an account?</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="loginButtonText">Log In</string>
+    <string name="signUpButtonText">Sign Up</string>
+    <string name="totalBalance">Total Balance:</string>
+    <string name="depositButtonText">Deposit</string>
+    <string name="withdrawButtonText">Withdraw</string>
+    <string name="myCryptosInfo">My Cryptos</string>
+    <string name="coinNameText">Coin Name</string>
+    <string name="coinAmountText">Amount</string>
+    <string name="coinProfitText">Profit</string>
+
 </resources>

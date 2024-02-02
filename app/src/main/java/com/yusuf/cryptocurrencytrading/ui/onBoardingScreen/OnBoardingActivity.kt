@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.yusuf.cryptocurrencytrading.R
 import android.content.Intent
+import android.os.Build
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -22,21 +25,19 @@ class OnBoardingActivity : AppCompatActivity() {
                 0 -> {
                     skipBtn.text = "Skip"
                     skipBtn.visible()
-                   // nextBtn.visible()
-                   // previousBtn.gone()
+
                 }
                 pagerList.size - 1 -> {
                     skipBtn.text = "Get Started"
-                   // nextBtn.gone()
+
                     skipBtn.visible()
-                   // previousBtn.visible()
+
 
                 }
                 else -> {
                     skipBtn.text = "Skip"
                     skipBtn.visible()
-                   // nextBtn.visible()
-                    //previousBtn.visible()
+
                 }
             }
         }
@@ -52,18 +53,25 @@ class OnBoardingActivity : AppCompatActivity() {
 
     lateinit var onBoardingViewPager2 : ViewPager2
     lateinit var skipBtn : Button
-   // lateinit var nextBtn : Button
-    //lateinit var previousBtn : Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_on_boarding)
 
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+
         onBoardingViewPager2= findViewById(R.id.onBoardingViewPager2)
         skipBtn= findViewById(R.id.skipBtn)
-        //nextBtn= findViewById(R.id.nextBtn)
-        //previousBtn= findViewById(R.id.previousBtn)
+
 
         onBoardingViewPager2.apply {
             adapter = OnBoardingAdapter(this@OnBoardingActivity,pagerList)
@@ -75,23 +83,12 @@ class OnBoardingActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout,onBoardingViewPager2){tab, position -> }.attach()
 
 
-        /*nextBtn.setOnClickListener {
-            if (onBoardingViewPager2.currentItem < onBoardingViewPager2.adapter!!.itemCount- 1){
-                onBoardingViewPager2.currentItem += 1
-            }else{
-                homeScreenIntent()
-            }
-        }*/
 
         skipBtn.setOnClickListener {
             homeScreenIntent()
         }
 
-        /*previousBtn.setOnClickListener {
-            if (onBoardingViewPager2.currentItem > 0){
-                onBoardingViewPager2.currentItem -= 1
-            }
-        }*/
+
 
     }
 
