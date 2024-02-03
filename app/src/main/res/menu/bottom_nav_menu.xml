@@ -7,34 +7,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home"
+        android:title="@string/home"
         />
     <item
         android:id="@+id/marketFragment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_add_shopping_cart_24"
-        android:title="Market" />
+        android:title="@string/fragmentMarketTitle" />
+
+    <item
+        android:id="@+id/favouriteCoinsFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/fragmentFavoritesTitle"
+        android:icon="@drawable/fav"
+        />
+
     <item
         android:id="@+id/transactionsFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Transactions"
+        android:title="@string/fragmentTransactionsTitle"
         android:icon="@drawable/baseline_currency_exchange_24"
         />
     <item
         android:id="@+id/walletFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Wallet"
+        android:title="@string/walletTitle"
         android:icon="@drawable/navbottom_ico_wallet"
 
-        />
-    <item
-        android:id="@+id/favouriteCoinsFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:title="Favourites"
-        android:icon="@drawable/fav"
         />
 </menu>

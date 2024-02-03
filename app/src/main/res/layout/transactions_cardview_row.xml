@@ -33,15 +33,16 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:textColor="@color/white"
                 android:id="@+id/coinName"
                 android:layout_width="89dp"
                 android:layout_height="22dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
                 android:text=""
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.088"
                 app:layout_constraintStart_toEndOf="@+id/coinImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,9 +59,9 @@
 
             <TextView
                 android:id="@+id/transactionStatus"
-                android:layout_width="81dp"
+                android:layout_width="91dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:text=""
                 android:textSize="16sp"

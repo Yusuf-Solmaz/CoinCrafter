@@ -45,5 +45,7 @@
     <string name="coinNameText">Coin Name</string>
     <string name="coinAmountText">Amount</string>
     <string name="coinProfitText">Profit</string>
+    <string name="home">Home</string>
+    <string name="walletTitle">Wallet</string>
 
 </resources>
