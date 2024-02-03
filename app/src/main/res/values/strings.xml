@@ -47,5 +47,6 @@
     <string name="coinProfitText">Profit</string>
     <string name="home">Home</string>
     <string name="walletTitle">Wallet</string>
+    <string name="splashScreenInfo">Managing your investments has never been easier.</string>
 
 </resources>
