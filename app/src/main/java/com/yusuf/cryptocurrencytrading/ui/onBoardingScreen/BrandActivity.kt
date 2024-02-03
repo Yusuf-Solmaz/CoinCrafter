@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.yusuf.cryptocurrencytrading.MainActivity
 import com.yusuf.cryptocurrencytrading.R
+import com.yusuf.cryptocurrencytrading.utils.NetworkUtils
 
 class BrandActivity : AppCompatActivity() {
 
@@ -28,12 +29,23 @@ class BrandActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+
     }
 
 
     override fun onStart() {
         super.onStart()
-        isFirstTime()
+
+        if (NetworkUtils.isInternetAvailable(this)) {
+            isFirstTime()
+        } else {
+            NetworkUtils.showNoInternetDialog(this) {
+                finish()
+            }
+
+        }
+
     }
 
     private fun isFirstTime(){

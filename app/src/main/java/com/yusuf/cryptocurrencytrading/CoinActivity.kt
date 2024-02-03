@@ -9,6 +9,8 @@ import android.view.WindowManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.yusuf.cryptocurrencytrading.databinding.ActivityCoinBinding
+import com.yusuf.cryptocurrencytrading.utils.NetworkUtils
+import com.yusuf.cryptocurrencytrading.utils.NetworkUtils.showNoInternetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,9 +32,19 @@ class CoinActivity : AppCompatActivity() {
             )
         }
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
+        if (NetworkUtils.isInternetAvailable(this)) {
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
 
-        NavigationUI.setupWithNavController(binding.bottomNavView,navHostFragment.navController)
+            NavigationUI.setupWithNavController(binding.bottomNavView,navHostFragment.navController)
+        } else {
+
+            showNoInternetDialog(this){
+                finish()
+            }
+
+        }
+
+
     }
 
     fun goToMainActivity() {

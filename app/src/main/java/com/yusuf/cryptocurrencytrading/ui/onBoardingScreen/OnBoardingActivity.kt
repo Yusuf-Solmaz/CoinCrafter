@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yusuf.cryptocurrencytrading.MainActivity
+import com.yusuf.cryptocurrencytrading.utils.NetworkUtils
 import com.yusuf.cryptocurrencytrading.utils.gone
 import com.yusuf.cryptocurrencytrading.utils.visible
 
@@ -69,25 +70,34 @@ class OnBoardingActivity : AppCompatActivity() {
             )
         }
 
-        onBoardingViewPager2= findViewById(R.id.onBoardingViewPager2)
-        skipBtn= findViewById(R.id.skipBtn)
+        if (NetworkUtils.isInternetAvailable(this)) {
+
+            onBoardingViewPager2= findViewById(R.id.onBoardingViewPager2)
+            skipBtn= findViewById(R.id.skipBtn)
 
 
-        onBoardingViewPager2.apply {
-            adapter = OnBoardingAdapter(this@OnBoardingActivity,pagerList)
-            registerOnPageChangeCallback(onBoardingPageChangeCallback)
-            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            onBoardingViewPager2.apply {
+                adapter = OnBoardingAdapter(this@OnBoardingActivity,pagerList)
+                registerOnPageChangeCallback(onBoardingPageChangeCallback)
+                (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            }
+
+            val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+            TabLayoutMediator(tabLayout,onBoardingViewPager2){tab, position -> }.attach()
+
+
+
+            skipBtn.setOnClickListener {
+                homeScreenIntent()
+            }
+
+
+        } else {
+            NetworkUtils.showNoInternetDialog(this){
+                finish()
+            }
+
         }
-
-        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        TabLayoutMediator(tabLayout,onBoardingViewPager2){tab, position -> }.attach()
-
-
-
-        skipBtn.setOnClickListener {
-            homeScreenIntent()
-        }
-
 
 
     }
