@@ -46,7 +46,7 @@ class MainCryptoFragment : Fragment() {
     private lateinit var adapter : CoinAdapter
     private var mContext: Context? = null
 
-    private val imageResources = arrayOf(R.drawable.crypto_image1, R.drawable.crypto_image2, R.drawable.crypto_image3)
+    private val imageResources = arrayOf(R.drawable.p1, R.drawable.p2, R.drawable.p3)
     private val timer = Timer()
 
     override fun onCreateView(
