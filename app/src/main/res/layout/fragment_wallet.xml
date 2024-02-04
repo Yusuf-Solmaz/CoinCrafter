@@ -97,7 +97,7 @@
                 android:layout_width="109dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="35dp"
-                android:background="@drawable/top_gainers_bg"
+                android:background="@drawable/deposit_bg"
                 android:text="@string/depositButtonText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
