@@ -27,18 +27,19 @@ class RegistrationViewModel : ViewModel() {
         }
     }
 
-    fun signIn(email: String, password: String,context: Context,onSuccess: () -> Unit, onFailure: (String) -> Unit){
+    fun signIn(email: String, password: String,context: Context,onSuccess: () -> Unit, onFailure: (Exception) -> Unit){
         loading.value = true
         if (Utils.emailAndPasswordControl(email,password,context)){
            auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
                onSuccess()
                loading.value = false
            }.addOnFailureListener {
-               onFailure(it.localizedMessage ?: "An unknown error occurred.")
+               onFailure(it)
+               loading.value = false
            }
         }
         else {
-            onFailure("E-mail or Password can not be empty.")
+            loading.value = false
         }
     }
 
@@ -66,14 +67,16 @@ class RegistrationViewModel : ViewModel() {
                         }
                         .addOnFailureListener {
                             onFailure(it.localizedMessage ?: "An unknown error occurred.")
+                            loading.value = false
                         }
 
                 }.addOnFailureListener {
                     onFailure(it.localizedMessage ?: "An unknown error occurred.")
+                    loading.value = false
                 }
         }
          else {
-            onFailure("E-mail or Password can not be empty.")
+            loading.value = false
         }
     }
 }
