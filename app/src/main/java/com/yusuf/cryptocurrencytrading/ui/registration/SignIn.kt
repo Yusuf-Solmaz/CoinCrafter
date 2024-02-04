@@ -70,7 +70,7 @@ class SignIn : Fragment() {
             val email = binding.editTextEmail.text.toString()
             val password = binding.editTextPassword.text.toString()
 
-            signIn(email,password)
+            signIn(email.trim(),password)
         }
 
     }

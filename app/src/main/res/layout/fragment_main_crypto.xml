@@ -60,7 +60,7 @@
         android:id="@+id/textViewUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="44dp"
         android:paddingLeft="10dp"
         android:text=""
         android:textColor="@color/onBoardingButton"

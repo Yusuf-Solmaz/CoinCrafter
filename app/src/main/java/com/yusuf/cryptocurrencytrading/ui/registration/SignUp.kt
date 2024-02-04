@@ -48,7 +48,7 @@ class SignUp : Fragment() {
             val password = binding.editTextPassword.text.toString()
             val email = binding.editTextEmail.text.toString()
 
-            viewModel.signUp(email, password, name, requireContext(),{
+            viewModel.signUp(email.trim(), password, name.trim(), requireContext(),{
                 val action = SignUpDirections.actionSignUpToSignIn()
                 findNavController().navigate(action)
 
