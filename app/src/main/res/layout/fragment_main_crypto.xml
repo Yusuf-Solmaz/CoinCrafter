@@ -44,15 +44,15 @@
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
     <TextView
-        android:textColor="#686666"
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="44dp"
         android:text="@string/welcome"
+        android:textColor="#9F9D9D"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
