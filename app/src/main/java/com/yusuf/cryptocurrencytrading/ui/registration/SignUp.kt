@@ -69,6 +69,7 @@ class SignUp : Fragment() {
             else{
                 binding.progressBar.gone()
                 binding.saveButton.isClickable= true
+                binding.saveButton.setBackgroundResource(R.drawable.button_border_white)
             }
         }
     }
