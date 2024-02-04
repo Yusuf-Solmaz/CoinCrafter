@@ -2,6 +2,7 @@ package com.yusuf.cryptocurrencytrading.ui.registration
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,7 @@ class SignIn : Fragment() {
                 else{
                     binding.progressBar2.gone()
                     binding.buttonSignIn.isClickable= true
+                    binding.buttonSignIn.setBackgroundResource(R.drawable.button_border_white)
                 }
             }
         }
@@ -82,7 +84,8 @@ class SignIn : Fragment() {
                 (mContext as MainActivity).goToCoinActivity()
             }
         },{
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            Log.i("signInException", it.localizedMessage!!.toString())
+            Toast.makeText(requireContext(), "Your Information is Incorrect", Toast.LENGTH_LONG).show()
         })
     }
 
