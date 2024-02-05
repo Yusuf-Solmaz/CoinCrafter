@@ -14,7 +14,9 @@
   </tr>
 </table>
 --------------------------------
+
 ## Dependencies Used
+
 --------------------------------
 
 * [Firebase](https://firebase.google.com/)
