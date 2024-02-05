@@ -13,7 +13,7 @@
     <td><img src="https://github.com/Yusuf-Solmaz/CoinCrafter/assets/83172478/00833e35-f695-44ef-beba-02cfa125e8a3" alt="Image 3"></td>
   </tr>
 </table>
---------------------------------
+
 
 ## Dependencies Used
 
@@ -31,7 +31,7 @@
 * [Glide](https://github.com/bumptech/glide)
 * [Retrofit](https://square.github.io/retrofit/)
 
---------------------------------
+
 ## Screens
 --------------------------------
 
@@ -43,7 +43,7 @@
   </tr>
 </table>
 
---------------------------------
+
 ## Get Started
 --------------------------------
 
@@ -62,7 +62,7 @@ git clone https://github.com/Yusuf-Solmaz/CoinCrafter
 
 3. Build and run the app on an emulator or a physical device.
 
---------------------------------
+
 ### Contact With Me
 --------------------------------
 
