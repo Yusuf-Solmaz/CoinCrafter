@@ -2,7 +2,7 @@
 
 ## Introduction 
 --------------------------------
-* This is a cryptocurrency trading app. The user can login to the application by registering. The user can search for the coins they want, see the coins that gain and lose the most value, view the graphs of the coins, their prices, and the rate of increase and decrease. They can add and withdraw money to their wallet, buy and sell coins, add coins to their favorites, and view their transaction history.
+* This is a cryptocurrency trading app. The user can log in to the application by registering. The user can search for the coins they want, see the coins that gain and lose the most value, view the graphs of the coins, their prices, and the rate of increase and decrease. They can add and withdraw money to their wallet, buy and sell coins, add coins to their favorites, and view their transaction history.
   
 * (Important Note: _Adding/removing money to the wallet and buying/selling coins is simulated._)
  
