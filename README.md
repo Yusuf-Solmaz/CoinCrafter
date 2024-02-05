@@ -14,11 +14,6 @@
   </tr>
 </table>
 
-## API Used
-
---------------------------------
-* _api.coinmarketcap.com_
-
 ## Dependencies Used
 
 --------------------------------
@@ -34,6 +29,11 @@
 * [MVVM](https://developer.android.com/topic/libraries/architecture/viewmodel#implement)
 * [Glide](https://github.com/bumptech/glide)
 * [Retrofit](https://square.github.io/retrofit/)
+
+## API Used
+
+--------------------------------
+* _api.coinmarketcap.com_
 
 
 ## Screens
