@@ -1,4 +1,4 @@
-# Coin Crafter
+# Coin Crafter <img src="https://img.shields.io/badge/-Kotlin-7c6fe1?style=flat&logo=kotlin&logoColor=white">
 
 ## Introduction 
 --------------------------------
