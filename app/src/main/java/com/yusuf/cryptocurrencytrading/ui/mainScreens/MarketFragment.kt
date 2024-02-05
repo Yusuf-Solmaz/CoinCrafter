@@ -1,25 +1,19 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentMarketBinding
-import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.MarketAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
 import com.yusuf.cryptocurrencytrading.ui.topLossGain.adapter.TopLossGainAdapter
 import com.yusuf.cryptocurrencytrading.utils.gone
 import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 
 @AndroidEntryPoint
 class MarketFragment : Fragment() {

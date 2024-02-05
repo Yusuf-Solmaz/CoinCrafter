@@ -12,11 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentAllCoinsBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.AllCoinsAdapter
-import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.MarketAdapter
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.AllCoinsViewModel
-import com.yusuf.cryptocurrencytrading.ui.mainScreens.viewModel.MarketViewModel
 import com.yusuf.cryptocurrencytrading.utils.gone
-import com.yusuf.cryptocurrencytrading.utils.invisible
 import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale

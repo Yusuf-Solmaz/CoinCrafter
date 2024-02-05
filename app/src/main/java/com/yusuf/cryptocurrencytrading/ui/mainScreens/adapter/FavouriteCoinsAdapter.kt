@@ -59,21 +59,6 @@ class FavouriteCoinsAdapter(val context: Context,var favCoins: List<FavouriteCry
                 }
             }
         }
-
-        /*holder.binding.cardView.setOnClickListener {
-            for (data in coins){
-                if (data.name != favCoinHashMap.name){
-                    continue
-                }
-                else{
-                    holder.binding.root.findNavController().navigate(FavouriteCoinsFragmentDirections.actionFavouriteCoinsFragmentToCoinDetailFragment(data))
-                }
-            }
-        }*/
-
-
-
-
     }
 
     fun updateData(newFavCoins: List<FavouriteCryptosFirebase>, newCoins: List<CryptoCurrency>) {

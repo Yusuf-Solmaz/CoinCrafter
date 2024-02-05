@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.navigation.fragment.NavHostFragment
 import com.yusuf.cryptocurrencytrading.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

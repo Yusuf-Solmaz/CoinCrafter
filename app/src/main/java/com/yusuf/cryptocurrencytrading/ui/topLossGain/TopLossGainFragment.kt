@@ -1,5 +1,3 @@
-// TopLossGainFragment
-
 package com.yusuf.cryptocurrencytrading.ui.topLossGain
 
 import android.os.Bundle

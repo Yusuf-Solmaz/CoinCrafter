@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
-import com.yusuf.cryptocurrencytrading.data.retrofit.entity.Quote
 import com.yusuf.cryptocurrencytrading.databinding.CoinListCardviewBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.MainCryptoFragmentDirections
 

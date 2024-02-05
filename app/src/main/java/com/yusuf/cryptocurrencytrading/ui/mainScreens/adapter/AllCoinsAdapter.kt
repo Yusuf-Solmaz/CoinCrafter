@@ -12,7 +12,7 @@ import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.CoinListCardviewBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.AllCoinsFragmentDirections
-import com.yusuf.cryptocurrencytrading.ui.mainScreens.MarketFragmentDirections
+
 
 class AllCoinsAdapter (var context: Context, var coinList: List<CryptoCurrency>) : RecyclerView.Adapter<AllCoinsAdapter.AllCoinsViewHolder>() {
 

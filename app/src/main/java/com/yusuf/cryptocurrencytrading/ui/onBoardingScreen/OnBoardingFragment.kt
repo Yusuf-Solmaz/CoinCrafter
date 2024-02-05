@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.yusuf.cryptocurrencytrading.R
-import com.yusuf.cryptocurrencytrading.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment(private val page: Page) : Fragment() {
 

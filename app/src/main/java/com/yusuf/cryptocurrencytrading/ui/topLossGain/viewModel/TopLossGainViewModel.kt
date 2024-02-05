@@ -1,5 +1,3 @@
-// TopLossGainViewModel
-
 package com.yusuf.cryptocurrencytrading.ui.topLossGain.viewModel
 
 import android.util.Log
