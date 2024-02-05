@@ -1,10 +1,11 @@
 # Coin Crafter
 
 ## Introduction 
-
+--------------------------------
 * This is a cryptocurrency trading app. The user can login to the application by registering. The user can search for the coins they want, see the coins that gain and lose the most value, view the graphs of the coins, their prices, and the rate of increase and decrease. They can add and withdraw money to their wallet, buy and sell coins, add coins to their favorites, and view their transaction history.
-* (Important Note: Adding/removing money to the wallet and buying/selling coins is simulated.) 
-
+  
+* (Important Note: _Adding/removing money to the wallet and buying/selling coins is simulated._)
+ 
  <table>
   <tr>
     <td><img src="https://github.com/Yusuf-Solmaz/CoinCrafter/assets/83172478/7095924d-61a9-4bd0-ac12-a24a193caaa4" alt="Image 1"></td>
@@ -12,8 +13,9 @@
     <td><img src="https://github.com/Yusuf-Solmaz/CoinCrafter/assets/83172478/00833e35-f695-44ef-beba-02cfa125e8a3" alt="Image 3"></td>
   </tr>
 </table>
-
+--------------------------------
 ## Dependencies Used
+--------------------------------
 
 * [Firebase](https://firebase.google.com/)
 * [ViewPager2](https://developer.android.com/jetpack/androidx/releases/viewpager2)
@@ -27,8 +29,9 @@
 * [Glide](https://github.com/bumptech/glide)
 * [Retrofit](https://square.github.io/retrofit/)
 
-
+--------------------------------
 ## Screens
+--------------------------------
 
   <table>
   <tr>
@@ -38,11 +41,13 @@
   </tr>
 </table>
 
+--------------------------------
 ## Get Started
+--------------------------------
 
 ### If You Want to Use the App on an Android Phone:
 
-* You can download the apk file of the app by clicking here(https://drive.google.com/drive/folders/1S4civvLTYjIeIQioiPCQR9pfTOnUQn2I?usp=sharing) and install the app on your tefaphone.
+* You can download the apk file of the app by clicking [here](https://drive.google.com/drive/folders/1S4civvLTYjIeIQioiPCQR9pfTOnUQn2I?usp=sharing) and install the app on your phone.
 
  ### If You Want to Run the App on Android Studio:
 
@@ -55,8 +60,9 @@ git clone https://github.com/Yusuf-Solmaz/CoinCrafter
 
 3. Build and run the app on an emulator or a physical device.
 
-
+--------------------------------
 ### Contact With Me
+--------------------------------
 
 * If you have any questions, feedback, or suggestions, feel free to reach out to me.
 yusufmucahitsolmaz@gmail.com
