@@ -68,7 +68,7 @@ git clone https://github.com/Yusuf-Solmaz/CoinCrafter
 3. Build and run the app on an emulator or a physical device.
 
 
-### Contact With Me
+## Contact With Me
 --------------------------------
 
 * If you have any questions, feedback, or suggestions, feel free to reach out to me.
@@ -76,6 +76,5 @@ yusufmucahitsolmaz@gmail.com
 
 
 ## License
---------------------------------
 This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details.
 
