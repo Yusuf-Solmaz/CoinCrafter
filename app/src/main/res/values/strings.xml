@@ -48,5 +48,7 @@
     <string name="home">Home</string>
     <string name="walletTitle">Wallet</string>
     <string name="splashScreenInfo">Managing your investments has never been easier.</string>
+    <string name="privacyPolicy"><![CDATA[Privacy & Policy]]></string>
+    <string name="termsOfUse">Terms of Use</string>
 
 </resources>
