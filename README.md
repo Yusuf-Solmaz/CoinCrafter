@@ -1,10 +1,11 @@
-# Coin Crafter
+# Coin Crafter <img src="https://img.shields.io/badge/-Kotlin-7c6fe1?style=flat&logo=kotlin&logoColor=white">
 
 ## Introduction 
 --------------------------------
-* This is a cryptocurrency trading app. The user can login to the application by registering. The user can search for the coins they want, see the coins that gain and lose the most value, view the graphs of the coins, their prices, and the rate of increase and decrease. They can add and withdraw money to their wallet, buy and sell coins, add coins to their favorites, and view their transaction history.
+* This is a cryptocurrency trading app. The user can log in to the application by registering. The user can search for the coins they want, see the coins that gain and lose the most value, view the graphs of the coins, their prices, and the rate of increase and decrease. They can add and withdraw money to their wallet, buy and sell coins, add coins to their favorites, and view their transaction history.
   
 * (Important Note: _Adding/removing money to the wallet and buying/selling coins is simulated._)
+* (_I used the word "favourites" instead of "favorites" in the project, sorry about that._)
  
  <table>
   <tr>
@@ -13,7 +14,6 @@
     <td><img src="https://github.com/Yusuf-Solmaz/CoinCrafter/assets/83172478/00833e35-f695-44ef-beba-02cfa125e8a3" alt="Image 3"></td>
   </tr>
 </table>
-
 
 ## Dependencies Used
 
@@ -30,6 +30,11 @@
 * [MVVM](https://developer.android.com/topic/libraries/architecture/viewmodel#implement)
 * [Glide](https://github.com/bumptech/glide)
 * [Retrofit](https://square.github.io/retrofit/)
+
+## API Used
+
+--------------------------------
+* _api.coinmarketcap.com_
 
 
 ## Screens
@@ -63,11 +68,13 @@ git clone https://github.com/Yusuf-Solmaz/CoinCrafter
 3. Build and run the app on an emulator or a physical device.
 
 
-### Contact With Me
+## Contact With Me
 --------------------------------
 
 * If you have any questions, feedback, or suggestions, feel free to reach out to me.
 yusufmucahitsolmaz@gmail.com
 
 
+## License
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details.
 
