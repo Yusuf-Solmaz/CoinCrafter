@@ -123,7 +123,6 @@ class WalletFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         getData()
     }
 
@@ -164,6 +163,8 @@ class WalletFragment : Fragment() {
     fun checkBalance(amount: Double) {
         viewModel.checkBalance(amount,requireView())
     }
+
+
 
 
 }
