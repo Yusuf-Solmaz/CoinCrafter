@@ -1,5 +1,8 @@
 package com.yusuf.cryptocurrencytrading.ui.mainScreens
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yusuf.cryptocurrencytrading.CoinActivity
+import com.yusuf.cryptocurrencytrading.MainActivity
 import com.yusuf.cryptocurrencytrading.data.retrofit.entity.CryptoCurrency
 import com.yusuf.cryptocurrencytrading.databinding.FragmentWalletBinding
 import com.yusuf.cryptocurrencytrading.ui.mainScreens.adapter.WalletUserCryptoAdapter
@@ -24,7 +29,7 @@ class WalletFragment : Fragment() {
     private lateinit var binding: FragmentWalletBinding
     private lateinit var viewModel: WalletViewModel
     private lateinit var adapter: WalletUserCryptoAdapter
-
+    private var mContext: Context? = null
     private lateinit var currentCoinList: List<CryptoCurrency>
 
     override fun onCreateView(
@@ -53,9 +58,50 @@ class WalletFragment : Fragment() {
             showCheckBalanceDialog()
         }
 
+        binding.deleteAccountBtn.setOnClickListener {
+            showDeleteUserDialog()
+        }
+
+    }
+
+    private fun showDeleteUserDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Are You Sure?")
+        builder.setMessage("Do you want to delete your account? This action cannot be undone.")
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            dialog.dismiss()
+            deleteUser()
+            deleteUserDocument()
+            logOut()
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun deleteUser() {
+        viewModel.deleteUser(requireView())
+    }
+
+    private fun deleteUserDocument(){
+        viewModel.deleteUserDocument(requireView())
     }
 
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
+    fun logOut(){
+        viewModel.logOut {
+            if (mContext is CoinActivity) {
+                (mContext as CoinActivity).goToMainActivity()
+            }
+        }
+    }
 
     private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(requireContext())
