@@ -120,7 +120,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="210dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="42dp"
                 android:background="@drawable/my_crypto_bg"
                 android:gravity="center"
                 android:text="@string/myCryptosInfo"
@@ -191,6 +191,16 @@
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/deleteAccountBtn"
+                android:layout_width="89dp"
+                android:layout_height="39dp"
+                android:background="@drawable/withdraw_background"
+                android:text="Delete Account"
+                app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+                app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
