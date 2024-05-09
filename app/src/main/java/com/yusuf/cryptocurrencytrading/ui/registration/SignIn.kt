@@ -1,6 +1,8 @@
 package com.yusuf.cryptocurrencytrading.ui.registration
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +16,8 @@ import com.yusuf.cryptocurrencytrading.MainActivity
 import com.yusuf.cryptocurrencytrading.R
 import com.yusuf.cryptocurrencytrading.databinding.FragmentSignInBinding
 import com.yusuf.cryptocurrencytrading.ui.registration.viewModel.RegistrationViewModel
+import com.yusuf.cryptocurrencytrading.utils.Utils.Companion.PRIVACY_POLICY_URL
+import com.yusuf.cryptocurrencytrading.utils.Utils.Companion.TERMS_OF_USE_URL
 import com.yusuf.cryptocurrencytrading.utils.gone
 import com.yusuf.cryptocurrencytrading.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,6 +79,22 @@ class SignIn : Fragment() {
             signIn(email.trim(),password)
         }
 
+        showPrivacyPolicy()
+        showTermsOfUse()
+    }
+
+    private fun showPrivacyPolicy(){
+        binding.privacyPolicy.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL))
+            startActivity(intent)
+        }
+    }
+
+    private fun showTermsOfUse(){
+        binding.privacyPolicy.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(TERMS_OF_USE_URL))
+            startActivity(intent)
+        }
     }
 
     private fun signIn(email:String,password:String){
