@@ -10,6 +10,8 @@ class Utils{
     companion object{
         private const val emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"
         private const val nameRegex = "^[a-zA-ZüÜğĞıİşŞöÖçÇ]+$"
+        const val PRIVACY_POLICY_URL = "https://doc-hosting.flycricket.io/coin-crafter-privacy-policy/32863c2b-4a9e-4566-9a4d-6d9e5f14daff/privacy"
+        const val TERMS_OF_USE_URL = "https://doc-hosting.flycricket.io/coin-crafter-terms-of-use/0eb4464f-eb89-4ee5-a9c0-de12b9921929/terms"
 
         fun  emailAndPasswordControl(email:String,password:String,context: Context) :Boolean{
             return if (email.equals("") || password.equals("")) {
