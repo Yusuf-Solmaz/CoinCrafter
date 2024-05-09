@@ -26,7 +26,8 @@ import javax.inject.Inject
 class WalletViewModel @Inject constructor(
     private val repo: CoinRepository,
     private val firestore: FirebaseFirestore,
-    private val baseUser: BaseUserFirebase
+    private val baseUser: BaseUserFirebase,
+    val auth: FirebaseAuth
 ) : ViewModel() {
 
     var balance = MutableLiveData<Double>()
@@ -291,6 +292,33 @@ class WalletViewModel @Inject constructor(
                 .update("userCoin", FieldValue.arrayUnion(updatedCoin))
                 .await()
         }
+    }
+
+
+
+    fun deleteUser(view: View) {
+        viewModelScope.launch {
+            try {
+                auth.currentUser?.delete()?.await()
+
+            } catch (e: Exception) {
+
+                showSnackbar(view, "An Error Found: ${e.localizedMessage}")
+            }
+        }
+    }
+
+    fun deleteUserDocument(view: View){
+        viewModelScope.launch {
+            firestore.collection("users").document(baseUser.getUserId())
+                .delete()
+                .await()
+        }
+    }
+
+    fun logOut(action: () -> Unit){
+        auth.signOut()
+        action()
     }
 
     private fun showSnackbar(view: View, message: String) {
