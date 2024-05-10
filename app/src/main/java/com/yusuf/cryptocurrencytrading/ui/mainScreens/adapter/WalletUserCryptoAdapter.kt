@@ -25,6 +25,7 @@ class WalletUserCryptoAdapter(val viewModel: WalletViewModel,val context: Contex
     init {
         Log.i("userCoinsSize", userCoins.size.toString())
         Log.i("WalletAdapterInit", userCoins.toString())
+        Log.i("WalletAdapterInitCoin", coins.size.toString())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserCryptoHolder {
@@ -140,6 +141,4 @@ class WalletUserCryptoAdapter(val viewModel: WalletViewModel,val context: Contex
         }
     }
 
-    }
-
-
+}

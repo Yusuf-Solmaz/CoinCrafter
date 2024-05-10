@@ -40,6 +40,8 @@ class WalletFragment : Fragment() {
         binding = FragmentWalletBinding.inflate(inflater,container,false)
 
         viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+        setupRecyclerView()
+        getData()
         return binding.root
     }
 
@@ -138,7 +140,7 @@ class WalletFragment : Fragment() {
         }
 
         viewModel.coins.observe(viewLifecycleOwner){
-            currentCoin ->
+                currentCoin ->
 
             Log.i("currentCoinList",currentCoin.data.cryptoCurrencyList[0].toString())
             currentCoinList = currentCoin.data.cryptoCurrencyList
