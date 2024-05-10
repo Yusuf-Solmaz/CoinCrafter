@@ -50,5 +50,7 @@
     <string name="splashScreenInfo">Managing your investments has never been easier.</string>
     <string name="privacyPolicy"><![CDATA[Privacy & Policy]]></string>
     <string name="termsOfUse">Terms of Use</string>
+    <string name="noFavText">You don\'t have any favorites yet</string>
+    <string name="noTransactionText">You do not have any transaction history yet</string>
 
 </resources>

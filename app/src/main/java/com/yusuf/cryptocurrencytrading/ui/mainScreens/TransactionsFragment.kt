@@ -55,10 +55,17 @@ class TransactionsFragment : Fragment() {
 
         viewModel.transactions.observe(viewLifecycleOwner){
             transactions->
-            transactions?.let {
-                adapter = TransactionsAdapter(requireContext(), transactions)
-                binding.transactionsRecyclerView.adapter = adapter
+            if (transactions.isEmpty()){
+                binding.noTransactionText.visible()
             }
+            else{
+                binding.noTransactionText.gone()
+                transactions?.let {
+                    adapter = TransactionsAdapter(requireContext(), transactions)
+                    binding.transactionsRecyclerView.adapter = adapter
+                }
+            }
+
 
         }
     }

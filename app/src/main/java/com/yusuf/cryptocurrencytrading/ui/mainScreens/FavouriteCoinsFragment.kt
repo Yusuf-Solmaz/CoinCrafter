@@ -60,6 +60,15 @@ class FavouriteCoinsFragment : Fragment() {
             }
         }
 
+        viewModel.favCoins.observe(viewLifecycleOwner){
+            if (it.isEmpty()){
+                binding.noFavText.visible()
+            }
+            else{
+                binding.noFavText.gone()
+            }
+        }
+
         viewModel.coins.observe(viewLifecycleOwner) { currentCoin ->
             Log.i("currentCoinListFav", currentCoin.data.cryptoCurrencyList[0].toString())
             currentCoinList = currentCoin.data.cryptoCurrencyList
