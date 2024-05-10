@@ -91,7 +91,7 @@ class SignIn : Fragment() {
     }
 
     private fun showTermsOfUse(){
-        binding.privacyPolicy.setOnClickListener{
+        binding.termsOfUse.setOnClickListener{
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(TERMS_OF_USE_URL))
             startActivity(intent)
         }
