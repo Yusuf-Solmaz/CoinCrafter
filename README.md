@@ -6,6 +6,10 @@
   
 * (Important Note: _Adding/removing money to the wallet and buying/selling coins is simulated._)
 * (_I used the word "favourites" instead of "favorites" in the project, sorry about that._)
+
+## Google Play Page
+
+* You can install the app on [Google Play](https://play.google.com/store/apps/details?id=com.yusuf.cryptocurrencytrading)
  
  <table>
   <tr>
@@ -51,10 +55,6 @@
 
 ## Get Started
 --------------------------------
-
-### If You Want to Use the App on an Android Phone:
-
-* You can download the apk file of the app by clicking [here](https://drive.google.com/drive/folders/1S4civvLTYjIeIQioiPCQR9pfTOnUQn2I?usp=sharing) and install the app on your phone.
 
  ### If You Want to Run the App on Android Studio:
 
